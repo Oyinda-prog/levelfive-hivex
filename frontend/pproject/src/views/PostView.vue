@@ -1,0 +1,139 @@
+<template>
+  <div class="container-fluid" style="background-color: #f5f9ff;">
+    <NavBar/>
+    <!-- <div class="alert alert-primary mt-5" v-if="check">
+{{ msg }}
+  </div> -->
+  <div
+  class=" mt-5 d-flex justify-content-center align-items-center"
+  v-if="check"
+  style="height: calc(100vh - 150px);width: calc(100vw - 400px)" 
+>
+  <h3 class="text-primary text-center">{{ msg }}</h3>
+</div>
+
+    <div class="row ">
+      <div class="col-12 col-lg-3 card childone d-md-block d-none d-sm-none">
+<div class="d-flex flex-column p-3 gap-3 mt-2">
+         <div class="d-flex my-3">
+   <div><img :src="`http://localhost:8000/profilepictures/`+profilepicture" alt="picture" height="50px" width="50px" style="border-radius: 100%; border: none;"></div>
+   <div><h5 class="mt-3 ms-3">{{ this.fullname}}</h5></div>
+         </div>
+          <div class="d-flex my-2" style="cursor: pointer;" @click="this.$router.push('/')">
+     <img src="../assets/homepage.png" alt="img" width="41px"> 
+     <h5 class="mt-3 ms-3">Home</h5>
+         </div>
+         <div class="d-flex my-2" style="cursor: pointer;" @click="this.$router.push('/friend')" >
+     <img src="../assets/friend.png" alt="img"> 
+     <h5 class="mt-3 ms-3">Friends</h5>
+         </div>
+         <div class="d-flex my-2" @click="this.$router.push('/feeds')" style="cursor: pointer;">
+     <img src="../assets/feed.png" alt="img" width="41px" > 
+     <h5 class="mt-3 ms-3">Feeds</h5>
+         </div>
+         <div class="d-flex my-2" style="cursor: pointer;" @click="this.$router.push('/profilepicture')">
+     <img src="../assets/profilepicture.png" alt="img" width="41px"> 
+     <h5 class="mt-3 ms-3">profile Picture</h5>
+         </div>
+         <div class="d-flex my-2" @click="this.$router.push('/groups/feed')" style="cursor: pointer;">
+     <img src="../assets/group.png" alt="img" width="41px"> 
+     <h5 class="mt-3 ms-3">Start a Group</h5>
+         </div>
+         <div class="d-flex my-2"  @click="this.$router.push('/marketplace')" style="cursor: pointer;">
+     <img src="../assets/marketplace.png" alt="img" width="41px"> 
+     <h5 class="mt-3 ms-3">Marketplace</h5>
+         </div>
+         <div class="d-flex my-2" @click="$router.push('/createpost')" style="cursor: pointer;">
+              <img src="../assets/createicon.png" width="41"> 
+              <h5 class="ms-3 mt-3">Start Post</h5>
+            </div>
+         <div class="d-flex my-2" @click="this.$router.push('/manage_groups')" style="cursor: pointer;">
+     <img src="../assets/birthday.png" alt="img" width="41px"> 
+     <h5 class="mt-3 ms-3">Manage Groups</h5>
+         </div>
+         <div class="d-flex my-2" @click="logout()" style="cursor: pointer;">
+     <img src="../assets/logout.png" alt="img" width="41px"> 
+     <h5 class="mt-3 ms-3">LogOut</h5>
+         </div>
+         
+           
+      </div>
+  </div>
+  
+  <div class="col-12 col-lg-7 offset-md-3 mt-5"   v-if="Array.isArray(posts)">
+    <div class="mt-5"></div> 
+   <div class="shadow col-12 col-md-10 p-2 mx-auto mt-5" v-for="post in posts" :key="post.id" >
+    <div class="d-flex p-3 mt-5">
+      <img :src="`http://localhost:8000/profilepictures/`+post.student.profilepicture" alt="profile picture" width="50px" height="50px" style="border-radius: 100%; border: none;" v-if="post.student.profilepicture!=null">
+      <h5 class="m-3">{{ post.student.fullname }}</h5>
+    </div>
+    <div class="col-12 col-md-8 p-2 mx-auto">
+      <p>{{ post.content }}</p>
+<img :src="`http://localhost:8000/postimages/`+post.post_img" alt="post image" width="100%" style="max-height: 450px;" v-if="post.post_img!=null">
+      <div class="d-flex justify-content-between" >
+  <p class="mt-5 text-primary">{{post.likes.length}} <span>Likes</span></p>
+  <p class="mt-5 text-primary">{{post.comments.length}} <span>Comments</span></p>
+      </div>
+     </div>
+  
+   </div>
+  </div>
+    </div>
+  </div> 
+  
+</template>
+
+<script>
+import axios from 'axios';
+import NavBar from './NavBar.vue';
+export default {
+data(){
+return{
+    userid:"",
+    posts:[],
+    check:false
+}
+},
+methods:{
+logout(){
+      localStorage.removeItem('honeyuserid')
+      localStorage.removeItem('honeyprofilepicture')
+      localStorage.removeItem('honeyfullname')
+      this.$router.push('/login')
+    },
+},
+  mounted(){
+    if(!localStorage.getItem('honeyuserid')){
+      this.$router.push('/login')
+    }
+      this.userid=JSON.parse(localStorage.getItem('honeyuserid'))
+      this.profilepicture=JSON.parse(localStorage.getItem('honeyprofilepicture'))
+      this.fullname=JSON.parse(localStorage.getItem('honeyfullname'))
+    axios.post('http://127.0.0.1:8000/api/mypost',{student_id:this.userid}).then((res)=>{
+      if(res.data.status==200){
+             this.posts=res.data.post 
+    }
+    else if(res.data.status==201){
+      this.check=true
+this.msg=res.data.msg
+    } 
+    })
+ 
+  },
+  components:{
+    NavBar,
+    
+  }
+}
+</script>
+
+<style scoped>
+.childone {
+  position: fixed;
+  top: 100px;
+  left: 0;
+  overflow-y: auto;
+  height: calc(100vh - 100px);
+  width: 25%;
+}
+</style>
