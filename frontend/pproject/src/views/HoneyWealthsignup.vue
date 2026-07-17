@@ -53,7 +53,7 @@ export default {
         password: this.password,
         phonenumber: this.phonenumber
       };
-      axios.post('http://127.0.0.1:8000/api/createstudent', user)
+      axios.post('https://backendhivex.onrender.com/api/createstudent', user)
         .then((res) => {
           if (res.data.status === '403') {
             this.msg = res.data.msg;
