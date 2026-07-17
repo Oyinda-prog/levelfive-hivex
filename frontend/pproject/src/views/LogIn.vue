@@ -83,7 +83,7 @@ export default{
             })
             setTimeout(() => {
                 this.msg=''
-            }, 3000);
+            }, 6000);
         } 
     }
 }
