@@ -1,4 +1,6 @@
 <img width="947" height="433" alt="hivex1" src="https://github.com/user-attachments/assets/b16e1479-1b42-402a-862f-815f135b5b4a" />
+<img width="955" height="437" alt="image" src="https://github.com/user-attachments/assets/331cd510-997e-49f6-8572-f49b425c01e1" />
+
 
 ### Authentication & User Management
 
