@@ -121,7 +121,14 @@ export default {
         }
       })
       .catch(err => {
-        this.msg = "An error occurred while uploading."+err;
+        console.error(err);
+
+  this.msg =
+    err.response?.data?.message ||
+    err.response?.data?.error ||
+    JSON.stringify(err.response?.data) ||
+    err.message;
+        // this.msg = "An error occurred while uploading."+err;
       });
 
       setTimeout(() => this.msg='', 6000);
