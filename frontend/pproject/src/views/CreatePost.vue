@@ -97,7 +97,7 @@ import NavBar from './NavBar.vue'
 export default {
   data(){
     return {
-      userid: '',
+      studentid: '',
       profilepicture: '',
       followername: '',
       allfriends: [],
@@ -108,14 +108,14 @@ export default {
     }
   },
   mounted(){
-    if(!localStorage.getItem('honeyuserid')){
+    if(!localStorage.getItem('studentid')){
       this.$router.push('/login')
     }
-    this.userid = JSON.parse(localStorage.getItem('honeyuserid'))
+    this.studentid = JSON.parse(localStorage.getItem('studentid'))
     this.profilepicture = JSON.parse(localStorage.getItem('honeyprofilepicture'))
     this.followername = JSON.parse(localStorage.getItem('honeyfullname'))
 
-    axios.post('http://127.0.0.1:8000/api/allfriends', { userid: this.userid })
+    axios.post('https://backendhivex.onrender.com/api/allfriends', { userid: this.studentid })
       .then((res) => {
         if(res.data.status == 200){
           this.load = true
@@ -128,7 +128,7 @@ export default {
   },
   methods:{
     logout(){
-      localStorage.removeItem('honeyuserid')
+      localStorage.removeItem('studentid')
       localStorage.removeItem('honeyprofilepicture')
       localStorage.removeItem('honeyfullname')
       this.$router.push('/login')
@@ -145,7 +145,7 @@ export default {
         post.append('student_id',this.userid)
         post.append('content',this.content)
         post.append('image',this.file)
-       axios.post('http://127.0.0.1:8000/api/post',post,{
+       axios.post('https://backendhivex.onrender.com/api/post',post,{
         headers:{
             'Content-Type':'multipart/form-data'
         }

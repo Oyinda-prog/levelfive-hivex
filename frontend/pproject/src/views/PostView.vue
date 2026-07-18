@@ -89,27 +89,27 @@ import NavBar from './NavBar.vue';
 export default {
 data(){
 return{
-    userid:"",
+    studentid:"",
     posts:[],
     check:false
 }
 },
 methods:{
 logout(){
-      localStorage.removeItem('honeyuserid')
+      localStorage.removeItem('studentid')
       localStorage.removeItem('honeyprofilepicture')
       localStorage.removeItem('honeyfullname')
       this.$router.push('/login')
     },
 },
   mounted(){
-    if(!localStorage.getItem('honeyuserid')){
+    if(!localStorage.getItem('studentid')){
       this.$router.push('/login')
     }
-      this.userid=JSON.parse(localStorage.getItem('honeyuserid'))
+      this.studentid=JSON.parse(localStorage.getItem('studentid'))
       this.profilepicture=JSON.parse(localStorage.getItem('honeyprofilepicture'))
       this.fullname=JSON.parse(localStorage.getItem('honeyfullname'))
-    axios.post('http://127.0.0.1:8000/api/mypost',{student_id:this.userid}).then((res)=>{
+    axios.post('https://backendhivex.onrender.com/api/mypost',{student_id:this.userid}).then((res)=>{
       if(res.data.status==200){
              this.posts=res.data.post 
     }

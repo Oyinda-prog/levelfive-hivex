@@ -139,7 +139,7 @@
       </div>
 <div class="row justify-content-evenly p-3">
 <div class="col-3 ms-5">
-    <div v-if="post.likes.find(like=>like.student_id == this.userid && like.status==1 )" @click="likebutton(post.id)" style="cursor: pointer;" >
+    <div v-if="post.likes.find(like=>like.student_id == this.studentid && like.status==1 )" @click="likebutton(post.id)" style="cursor: pointer;" >
     <img src="../assets/images/liketwo.jpeg" alt="" width="15px" height="15px">
    
 </div>
@@ -176,7 +176,7 @@
       
     <div class="row justify-content-around p-5">
 <div class="col-3">
-   <div v-if="selectedpostimage.likes.find(like=>like.student_id == this.userid && like.status==1 )" @click="likebutton(selectedpostimage.id)" style="cursor: pointer;" >
+   <div v-if="selectedpostimage.likes.find(like=>like.student_id == this.studentid && like.status==1 )" @click="likebutton(selectedpostimage.id)" style="cursor: pointer;" >
     <img src="../assets/images/liketwo.jpeg" alt="" width="15px" height="15px">
     
 </div>
@@ -374,7 +374,7 @@ console.log(this.counter.returnprofile());
         
     })
     
-    axios.post('http://127.0.0.1:8000/api/allusers',{student_id:this.userid}).then((res)=>{
+    axios.post('https://backendhivex.onrender.com/api/allusers',{student_id:this.studentid}).then((res)=>{
    
     
        this.allstudents=res.data.students
@@ -387,7 +387,7 @@ console.log(this.counter.returnprofile());
       
       
     })
-    axios.post('http://127.0.0.1:8000/api/allfollowing',{userid:this.userid}).then((res)=>{
+    axios.post('https://backendhivex.onrender.com/api/allfollowing',{userid:this.studentid}).then((res)=>{
         
         this.allposts=res.data.post
 
@@ -409,23 +409,23 @@ console.log(this.counter.returnprofile());
     },
     follow(id,fullname,follow_status){
         let user={
-            follower_id:this.userid,
+            follower_id:this.studentid,
             follower_name:this.followername,
             following_id:id,
             following_name:fullname,
             follow_status
         }  
-        axios.post('http://127.0.0.1:8000/api/follower',user).then((res)=>{
+        axios.post('https://backendhivex.onrender.com/api/follower',user).then((res)=>{
             
           if(res.data){
-axios.post('http://127.0.0.1:8000/api/allusers',{student_id:this.userid}).then((res)=>{
+axios.post('hhttps://backendhivex.onrender.com/api/allusers',{student_id:this.studentid}).then((res)=>{
      
     
        this.allstudents=res.data.students
        
       
     })
-    axios.post('http://127.0.0.1:8000/api/allfollowing',{userid:this.userid}).then((res)=>{
+    axios.post('https://backendhivex.onrender.com/api/allfollowing',{userid:this.studentid}).then((res)=>{
   
         this.allposts=res.data.post
 
@@ -456,7 +456,7 @@ axios.post('http://127.0.0.1:8000/api/allusers',{student_id:this.userid}).then((
 },
 
 logout(){
-      localStorage.removeItem('honeyuserid')
+      localStorage.removeItem('studentid')
       localStorage.removeItem('honeyprofilepicture')
       localStorage.removeItem('honeyfullname')
       this.$router.push('/login')
@@ -472,10 +472,10 @@ this.file=e.target.files[0]
         }
         else{
         const post=new FormData()
-        post.append('student_id',this.userid)
+        post.append('student_id',this.studentid)
         post.append('content',this.content)
         post.append('image',this.file)
-       axios.post('http://127.0.0.1:8000/api/post',post,{
+       axios.post('https://backendhivex.onrender.com/api/post',post,{
         headers:{
             'Content-Type':'multipart/form-data'
         }
@@ -484,7 +484,7 @@ this.file=e.target.files[0]
           if(res.data.status=='200'){
             this.msg=res.data.msg
             this.content=''
-            axios.post('http://127.0.0.1:8000/api/allfollowing',{userid:this.userid}).then((res)=>{
+            axios.post('https://backendhivex.onrender.com/api/allfollowing',{userid:this.studentid}).then((res)=>{
         this.allposts=res.data.post
     })
 }
@@ -514,16 +514,16 @@ comments(postid){
      
         let comment={
           postid,
-          studentid:this.userid,
+          studentid:this.studentid,
           comment:this.comment[postid]
         }
         
-        axios.post('http://127.0.0.1:8000/api/comment',comment)
+        axios.post('https://backendhivex.onrender.com/api/comment',comment)
        .then((res)=>{
       
         
         if(res.data){
-            axios.post('http://127.0.0.1:8000/api/allfollowing',{userid:this.userid}).then((res)=>{
+            axios.post('https://backendhivex.onrender.com/api/allfollowing',{userid:this.studentid}).then((res)=>{
     
         this.allposts=res.data.post
         if (this.selectedpostimage && this.selectedpostimage.id === postid) {
@@ -554,13 +554,13 @@ this.replycheck=null
     },
     replies(commentid,postid){
       let replyobj={
-    commentid,postid,studentid:this.userid,
+    commentid,postid,studentid:this.studentid,
     reply:this.reply[commentid]
    }
-    axios.post('http://127.0.0.1:8000/api/reply',replyobj).then((res)=>{
+    axios.post('https://backendhivex.onrender.com/api/reply',replyobj).then((res)=>{
       if(res.data){
         this.replycheck=null      
-            axios.post('http://127.0.0.1:8000/api/allfollowing',{userid:this.userid}).then((res)=>{
+            axios.post('https://backendhivex.onrender.com/api/allfollowing',{userid:this.studentid}).then((res)=>{
     
         this.allposts=res.data.post
          if (this.selectedpostimage && this.selectedpostimage.id === commentid) {
@@ -581,14 +581,14 @@ this.replycheck=null
     likebutton(postid){
       let like={
         postid,
-        studentid:this.userid
+        studentid:this.studentid
       }
-       axios.post('http://127.0.0.1:8000/api/like',like)
+       axios.post('https://backendhivex.onrender.com/api/like',like)
        .then((res)=>{
            if(res.data){
            
             
-            axios.post('http://127.0.0.1:8000/api/allfollowing',{userid:this.userid}).then((res)=>{
+            axios.post('https://backendhivex.onrender.com/api/allfollowing',{userid:this.studentid}).then((res)=>{
     
         this.allposts=res.data.post
          if (this.selectedpostimage && this.selectedpostimage.id === postid) {
@@ -610,7 +610,7 @@ this.replycheck=null
  computed:{
 
 getcurrentuser(){
-    return this.allstudents.find((student)=>student.student_id==this.userid);
+    return this.allstudents.find((student)=>student.student_id==this.studentid);
 },
   
   },
