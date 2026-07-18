@@ -349,7 +349,7 @@ data(){
   }
   this.userid=JSON.parse(localStorage.getItem('honeyuserid'))
   axios.get(
-    `https://backendhivex.onrender.com/api/getcurrentstudent?id=${this.userid}`
+    `https://backendhivex.onrender.com/api/getcurrentstudent/${this.userid}`
   )
   .then((res) => {
     console.log(res.data.student);
@@ -359,7 +359,8 @@ data(){
    
   })
   .catch((err) => {
-      console.log(err);
+     console.log(err.response?.data || err);
+      // console.log(err);
   });
   
       console.log(this.counter.picture);
