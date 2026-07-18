@@ -1,5 +1,13 @@
 <img width="947" height="433" alt="hivex1" src="https://github.com/user-attachments/assets/b16e1479-1b42-402a-862f-815f135b5b4a" />
 <img width="955" height="437" alt="image" src="https://github.com/user-attachments/assets/331cd510-997e-49f6-8572-f49b425c01e1" />
+<img width="959" height="421" alt="image" src="https://github.com/user-attachments/assets/f44a286f-da89-45a1-8b06-aed475fdfa4a" />
+<img width="934" height="425" alt="image" src="https://github.com/user-attachments/assets/f9f27e97-c2e0-4700-90f4-5efd1c0b5600" />
+<img width="944" height="443" alt="image" src="https://github.com/user-attachments/assets/cfeb53c5-84a1-43b1-bdde-94752d6d761e" />
+
+
+
+
+
 
 
 ### Authentication & User Management
