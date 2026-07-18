@@ -325,7 +325,7 @@ data(){
     commentcheck:null,
     msg:'',
     allstudents:[],
-    userid:"",
+    studentid:"",
     fullname:"",
     file:'',
     allstudent:'',
@@ -343,13 +343,13 @@ data(){
     },
 
   mounted(){
-  if (!localStorage.getItem('honeyuserid'))
+  if (!localStorage.getItem('studentid'))
   {
       this.$router.push('/login')
   }
-  this.userid=JSON.parse(localStorage.getItem('honeyuserid'))
+  this.studentid=JSON.parse(localStorage.getItem('studentid'))
   axios.get(
-    `https://backendhivex.onrender.com/api/getcurrentstudent/${this.userid}`
+    `https://backendhivex.onrender.com/api/getcurrentstudent/${this.studentid}`
   )
   .then((res) => {
     console.log(res.data.student);
