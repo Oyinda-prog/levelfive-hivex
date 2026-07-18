@@ -113,11 +113,11 @@ export default {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
       .then(res => {
-        if(res.data.status == 200){
-          this.msg = res.data.msg || "Profile picture uploaded successfully!";
+        if(res.data.status == true){
+          console.log(res.data);
+          
+          this.msg = res.data.message || "Profile picture uploaded successfully!";
           setTimeout(() => this.$router.push('/'), 3000);
-        } else if(res.data.status == 201) {
-          this.msg = res.data.msg;
         }
       })
       .catch(err => {
