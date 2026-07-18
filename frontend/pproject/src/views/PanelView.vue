@@ -354,7 +354,9 @@ data(){
   .then((res) => {
     console.log(res.data.student);
 
-    this.counter.getprofile(res.data.student.profilepicture);
+    this.profilepicture=res.data.student.profilepicture
+    this.followername=res.data.student.fullname
+   
   })
   .catch((err) => {
       console.log(err);
@@ -362,11 +364,9 @@ data(){
   
       console.log(this.counter.picture);
 console.log(this.counter.returnprofile());
-      // this.profilepicture=JSON.parse(localStorage.getItem('honeyprofilepicture'))
-      this.profilepicture=this.counter.returnprofile()
-      this.followername=JSON.parse(localStorage.getItem('honeyfullname'))
+
     
-     axios.get('http://127.0.0.1:8000/api/allposts').then((res)=>{
+     axios.get('https://backendhivex.onrender.com/api/allposts').then((res)=>{
         
       this.allpost=res.data.post
        

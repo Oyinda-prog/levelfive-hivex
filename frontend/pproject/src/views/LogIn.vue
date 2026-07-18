@@ -63,9 +63,9 @@ export default{
                  console.log(res.data);
                  
                 if(res.data.status==true){
-                    this.counter.getprofile(res.data.profilepicture)
-                    localStorage.setItem('honeyuserid',JSON.stringify(res.data.userid))
-                    localStorage.setItem('honeyfullname',JSON.stringify(res.data.fullname))
+                    // this.counter.getprofile(res.data.profilepicture)
+                    // localStorage.setItem('honeyuserid',JSON.stringify(res.data.userid))
+                    // localStorage.setItem('honeyfullname',JSON.stringify(res.data.fullname))
                     // localStorage.setItem('honeyprofilepicture',JSON.stringify(res.data.profilepicture))
                     this.$router.push('/')
                 }
