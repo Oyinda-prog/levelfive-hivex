@@ -7,7 +7,7 @@
       <div class=" bg-light childone col-md-3 d-md-block d-none d-sm-none">
            <div class="d-flex flex-column p-3 gap-3 mt-2">
          <div class="d-flex my-3">
-   <div><img :src="`http://localhost:8000/profilepictures/`+profilepicture" alt="picture" height="50px" width="50px" style="border-radius: 100%; border: none;"></div>
+   <div><img :src="profilepicture" alt="picture" height="50px" width="50px" style="border-radius: 100%; border: none;"></div>
    <div><h5 class="mt-3 ms-3">{{ followername }}</h5></div>
          </div>
           <div class="d-flex my-2" style="cursor: pointer;" @click="this.$router.push('/')">
@@ -351,7 +351,10 @@ if(!localStorage.getItem('honeyuserid')){
     
   }, 5000);
       this.userid=JSON.parse(localStorage.getItem('honeyuserid'))
-      this.profilepicture=JSON.parse(localStorage.getItem('honeyprofilepicture'))
+      console.log(this.counter.picture);
+console.log(this.counter.returnprofile());
+      // this.profilepicture=JSON.parse(localStorage.getItem('honeyprofilepicture'))
+      this.profilepicture=this.counter.returnprofile()
       this.followername=JSON.parse(localStorage.getItem('honeyfullname'))
     
      axios.get('http://127.0.0.1:8000/api/allposts').then((res)=>{
