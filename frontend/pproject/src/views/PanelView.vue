@@ -343,14 +343,23 @@ data(){
     },
 
   mounted(){
-if(!localStorage.getItem('honeyuserid')){
+  if (!localStorage.getItem('honeyuserid'))
+  {
       this.$router.push('/login')
-    }
-   
-  setInterval(() => {
-    
-  }, 5000);
-      this.userid=JSON.parse(localStorage.getItem('honeyuserid'))
+  }
+  this.userid=JSON.parse(localStorage.getItem('honeyuserid'))
+  axios.get(
+    `https://backendhivex.onrender.com/api/getcurrentstudent?id=${this.userid}`
+  )
+  .then((res) => {
+    console.log(res.data.student);
+
+    this.counter.getprofile(res.data.student.profilepicture);
+  })
+  .catch((err) => {
+      console.log(err);
+  });
+  
       console.log(this.counter.picture);
 console.log(this.counter.returnprofile());
       // this.profilepicture=JSON.parse(localStorage.getItem('honeyprofilepicture'))

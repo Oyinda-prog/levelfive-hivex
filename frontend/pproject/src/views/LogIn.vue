@@ -49,6 +49,7 @@ export default{
     },
     mounted(){
         this.allusers=JSON.parse(localStorage.getItem('allsignupusers')) || []
+        axios.get()
       
     },
     methods:{
@@ -65,7 +66,7 @@ export default{
                     this.counter.getprofile(res.data.profilepicture)
                     localStorage.setItem('honeyuserid',JSON.stringify(res.data.userid))
                     localStorage.setItem('honeyfullname',JSON.stringify(res.data.fullname))
-                    localStorage.setItem('honeyprofilepicture',JSON.stringify(res.data.profilepicture))
+                    // localStorage.setItem('honeyprofilepicture',JSON.stringify(res.data.profilepicture))
                     this.$router.push('/')
                 }
                 else if(res.data.status==204){
