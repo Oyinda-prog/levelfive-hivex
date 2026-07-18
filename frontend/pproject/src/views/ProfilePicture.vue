@@ -109,7 +109,7 @@ export default {
       post.append('student_id', this.userid);
       post.append('image', this.profilepicture);
 
-      axios.post('http://127.0.0.1:8000/api/studentprofilepicture', post, {
+      axios.post('https://backendhivex.onrender.com/api/studentprofilepicture', post, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
       .then(res => {
@@ -124,7 +124,7 @@ export default {
         this.msg = "An error occurred while uploading."+err;
       });
 
-      setTimeout(() => this.msg='', 3000);
+      setTimeout(() => this.msg='', 6000);
     }
   }
 };
