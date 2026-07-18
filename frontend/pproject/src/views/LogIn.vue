@@ -59,7 +59,8 @@ export default{
             }
             axios.post('https://backendhivex.onrender.com/api/createlogin',user)
             .then((res)=>{
-              
+                 console.log(res.data);
+                 
                 if(res.data.status==true){
                     this.counter.getprofile(res.data.profilepicture)
                     localStorage.setItem('honeyuserid',JSON.stringify(res.data.userid))
