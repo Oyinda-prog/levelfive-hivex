@@ -75,15 +75,15 @@ export default {
     return {
       msg: "",
       profilepicture: "",
-      userid: "",
+      studentid: "",
       preview: null
     };
   },
 
   mounted() {
-    let user = localStorage.getItem('honeyuserid');
-    if(user){
-      this.userid=JSON.parse(user)
+    let studentid = localStorage.getItem('studentid');
+    if(studentid){
+      this.studentid=JSON.parse(studentid)
     }
     else{
       this.$router.push('/login')
@@ -106,7 +106,7 @@ export default {
       }
 
       const post = new FormData();
-      post.append('student_id', this.userid);
+      post.append('student_id', this.studentid);
       post.append('image', this.profilepicture);
 
       axios.post('https://backendhivex.onrender.com/api/studentprofilepicture', post, {
@@ -117,7 +117,7 @@ export default {
           console.log(res.data);
           
           this.msg = res.data.message || "Profile picture uploaded successfully!";
-          setTimeout(() => this.$router.push('/'), 3000);
+          setTimeout(() => this.$router.push('/'), 6000);
         }
       })
       .catch(err => {
@@ -127,7 +127,7 @@ export default {
     console.log(err.response.data);
     this.msg = JSON.stringify(err.response.data);
   } else {
-    this.msg = err.message;
+    this.msg = 'An error occured while uploading';
   }
         // this.msg = "An error occurred while uploading."+err;
       });

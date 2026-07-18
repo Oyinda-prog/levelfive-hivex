@@ -64,9 +64,7 @@ export default{
                  
                 if(res.data.status==true){
                     // this.counter.getprofile(res.data.profilepicture)
-                     localStorage.setItem('honeyuserid',JSON.stringify(res.data.userid))
-                    // localStorage.setItem('honeyfullname',JSON.stringify(res.data.fullname))
-                    // localStorage.setItem('honeyprofilepicture',JSON.stringify(res.data.profilepicture))
+                    localStorage.setItem('studentid',JSON.stringify(res.data.student.student_id))
                     this.$router.push('/')
                 }
                 else if(res.data.status==204){
