@@ -121,13 +121,14 @@ export default {
         }
       })
       .catch(err => {
-        console.error(err);
+         console.log(err);
 
-  this.msg =
-    err.response?.data?.message ||
-    err.response?.data?.error ||
-    JSON.stringify(err.response?.data) ||
-    err.message;
+  if (err.response) {
+    console.log(err.response.data);
+    this.msg = JSON.stringify(err.response.data);
+  } else {
+    this.msg = err.message;
+  }
         // this.msg = "An error occurred while uploading."+err;
       });
 
