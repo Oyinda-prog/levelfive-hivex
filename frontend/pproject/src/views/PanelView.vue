@@ -72,9 +72,7 @@
   style="width: 100%; height: 400px;"
 >
   <img
-    :src="student.profilepicture
-      ? `http://localhost:8000/profilepictures/${student.profilepicture}`
-      : require('../assets/images/default.jpg')"
+    :src="student.profilepicture || require('../assets/images/default.jpg')"
     alt="picture"
     style="width: 100%; height: 100%; object-fit: cover; display: block;"
     class="rounded"
@@ -83,12 +81,31 @@
 
     <p>{{ student.fullname }}</p> 
 
-      <div class="mt-5" v-if="student.follow_status==='follow'">
+      <!-- <div class="mt-5" v-if="student.follow_status==='follow'">
         <button class="btn btn-outline-primary" @click="follow(student.student_id,student.fullname,student.follow_status)">Unfollow</button>
       </div>
       <div class="mt-5" v-else>
         <button class="btn btn-outline-primary" @click="follow(student.student_id,student.fullname,student.follow_status)">Follow</button>
+      </div> -->
+
+      <div class="mt-5">
+        <button
+        v-if="student.is_following"
+        class="btn btn-outline-primary"
+        @click="follow(student.student_id)"
+        >
+        Unfollow
+       </button>
+
+       <button
+        v-else
+        class="btn btn-primary"
+        @click="follow(student.student_id)"
+       >
+        Follow
+       </button>
       </div>
+
     </div>
   </div>
 </div>
@@ -378,6 +395,8 @@ console.log(this.counter.returnprofile());
    
     
        this.allstudents=res.data.students
+       console.log(this.allstudents);
+       
         let length=this.allstudents.length-1
         
       let c=  Math.floor(Math.random()*length)
@@ -407,13 +426,10 @@ console.log(this.counter.returnprofile());
         this.$router.push('/view')
 
     },
-    follow(id,fullname,follow_status){
+    follow(followingid){
         let user={
             follower_id:this.studentid,
-            follower_name:this.followername,
-            following_id:id,
-            following_name:fullname,
-            follow_status
+            following_id:followingid,
         }  
         axios.post('https://backendhivex.onrender.com/api/follower',user).then((res)=>{
             
