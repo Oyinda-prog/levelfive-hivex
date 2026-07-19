@@ -150,7 +150,6 @@ export default {
         if (this.file) {
           post.append('image', this.file);
         }
-        post.append('image',this.file)
        axios.post('https://backendhivex.onrender.com/api/post',post,{
         headers:{
             'Content-Type':'multipart/form-data'
@@ -158,7 +157,9 @@ export default {
        })
         .then((res) => {
     if (res.data.status) {
-        this.msg = res.data.message;
+      this.msg = res.data.message;
+      this.content = '';
+      this.file = null;
     }
 })
 .catch((err) => {
