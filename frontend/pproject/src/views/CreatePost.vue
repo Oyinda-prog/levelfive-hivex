@@ -140,52 +140,31 @@ export default {
     createpost(){
       if(this.content.trim() === ''){
         this.msg = 'Post content cannot be empty.'
-      } else {
+      } 
       const post=new FormData()
-        post.append('student_id',this.userid)
+        post.append('student_id',this.studentid)
         post.append('content',this.content)
+        if (this.file) {
+          post.append('image', this.file);
+        }
         post.append('image',this.file)
        axios.post('https://backendhivex.onrender.com/api/post',post,{
         headers:{
             'Content-Type':'multipart/form-data'
         }
        })
-       .then((res)=>{
-
-       if(res.data.status==200){
-     this.msg=res.data.msg
-        this.content = ''
-        this.file = null
-        this.$refs.fileInput.value = null 
-       } 
-       else if(res.data.status==202){
-        this.msg=res.data.msg
-       }
-       else if(res.data.status==204){
-        this.msg=res.data.msg
-       }
-       else if(res.data.status==206){
-        this.msg=res.data.msg
-       }
-       else if(res.data.status==208){
-        this.msg=res.data.msg
-       }
-       else{
-        this.msg = 'An error occurred while creating the post.'
-       }
-        
-        
-       })
-       .catch((err)=>{
-        this.msg=err
-        
-        
-       })
-        
-      }
+        .then((res) => {
+    if (res.data.status) {
+        this.msg = res.data.message;
+    }
+})
+.catch((err) => {
+    this.msg = err.response?.data?.message || err.message;
+});
+      
       setTimeout(() => {
         this.msg=''
-      }, 3000);
+      }, 6000);
     }
   },
   components:{
