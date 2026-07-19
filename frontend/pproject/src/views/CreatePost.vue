@@ -115,16 +115,19 @@ export default {
     this.profilepicture = JSON.parse(localStorage.getItem('honeyprofilepicture'))
     this.followername = JSON.parse(localStorage.getItem('honeyfullname'))
 
-    axios.post('https://backendhivex.onrender.com/api/allfriends', { userid: this.studentid })
-      .then((res) => {
-        if(res.data.status == 200){
-          this.load = true
-          this.allfriends = res.data.friends
-        } else if(res.data.status == 201){
-        
-          this.load = true
-        }
-      })
+   axios.post(
+    'https://backendhivex.onrender.com/api/allfriends',
+    {
+        userid: this.studentid
+    }
+)
+.then((res) => {
+    console.log(res.data.followers);
+    this.friends = res.data.followers;
+})
+.catch((err) => {
+    console.log(err);
+});
   },
   methods:{
     logout(){
