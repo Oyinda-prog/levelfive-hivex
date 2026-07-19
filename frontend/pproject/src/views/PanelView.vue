@@ -7,7 +7,15 @@
       <div class=" bg-light childone col-md-3 d-md-block d-none d-sm-none">
            <div class="d-flex flex-column p-3 gap-3 mt-2">
          <div class="d-flex my-3">
-   <div><img :src="profilepicture" alt="picture" height="50px" width="50px" style="border-radius: 100%; border: none;"></div>
+   <div>
+    <img
+    :src="profilepicture || require('../assets/images/default.jpg')"
+alt="picture" height="50px" width="50px" style="border-radius: 100%; border: none;"
+    class="rounded"
+  />
+   <!-- <img :src="profilepicture" alt="picture" height="50px" width="50px" style="border-radius: 100%; border: none;"> -->
+   </div>
+   
    <div><h5 class="mt-3 ms-3">{{ fullname }}</h5></div>
          </div>
           <div class="d-flex my-2" style="cursor: pointer;" @click="this.$router.push('/')">
@@ -429,7 +437,7 @@ console.log(this.counter.returnprofile());
         axios.post('https://backendhivex.onrender.com/api/follower',user).then((res)=>{
             
           if(res.data){
-axios.post('hhttps://backendhivex.onrender.com/api/allusers',{student_id:this.studentid}).then((res)=>{
+axios.post('https://backendhivex.onrender.com/api/allusers',{student_id:this.studentid}).then((res)=>{
      
     
        this.allstudents=res.data.students
