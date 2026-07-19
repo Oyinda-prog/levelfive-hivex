@@ -13,9 +13,9 @@
           <div class="d-flex flex-column p-3 gap-3 mt-2">
             <div class="d-flex my-3">
               <div>
-                <img :src="`http://localhost:8000/profilepictures/`+profilepicture" alt="picture" height="50px" width="50px" style="border-radius: 100%;">
+                <img :src="profilepicture" alt="picture" height="50px" width="50px" style="border-radius: 100%;">
               </div>
-              <div><h5 class="mt-3 ms-3">{{ followername }}</h5></div>
+              <div><h5 class="mt-3 ms-3">{{ fullname }}</h5></div>
             </div>
             <div class="menu-item" @click="$router.push('/')">
               <img src="../assets/homepage.png" width="41"> <h5 class="ms-3">Home</h5>
@@ -112,8 +112,20 @@ export default {
       this.$router.push('/login')
     }
     this.studentid = JSON.parse(localStorage.getItem('studentid'))
-    this.profilepicture = JSON.parse(localStorage.getItem('honeyprofilepicture'))
-    this.followername = JSON.parse(localStorage.getItem('honeyfullname'))
+  axios.get(
+    `https://backendhivex.onrender.com/api/getcurrentstudent/${this.studentid}`
+  )
+  .then((res) => {
+    console.log(res.data.student);
+
+    this.profilepicture=res.data.student.profilepicture
+    this.fullname=res.data.student.fullname
+   
+  })
+  .catch((err) => {
+     console.log(err.response?.data || err);
+      // console.log(err);
+  });
 
    axios.post(
     'https://backendhivex.onrender.com/api/allfriends',
