@@ -166,9 +166,11 @@ export default {
   console.log(err.response.data);
   
     this.msg = err.response?.data?.message || err.message;
+    this.content = '';
+    this.file = null;
 });
       
-      setTimeout(() => {
+    setTimeout(() => {
         this.msg=''
       }, 6000);
     }
