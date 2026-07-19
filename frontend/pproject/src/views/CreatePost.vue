@@ -153,9 +153,6 @@ export default {
     
     },
     createpost(){
-      if(this.content.trim() === ''){
-        this.msg = 'Post content cannot be empty.'
-      } 
       const post=new FormData()
         post.append('student_id',this.studentid)
         post.append('content',this.content)
