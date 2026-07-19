@@ -162,6 +162,8 @@ export default {
     }
 })
 .catch((err) => {
+  console.log(err.response.data);
+  
     this.msg = err.response?.data?.message || err.message;
 });
       
