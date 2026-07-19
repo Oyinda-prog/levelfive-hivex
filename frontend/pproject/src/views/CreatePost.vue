@@ -15,7 +15,7 @@
               <div>
                 <img :src="profilepicture" alt="picture" height="50px" width="50px" style="border-radius: 100%;">
               </div>
-              <div><h5 class="mt-3 ms-3">{{ fullname }}</h5></div>
+              <div><p class="mt-3 ms-3">{{ fullname }}</p></div>
             </div>
             <div class="menu-item" @click="$router.push('/')">
               <img src="../assets/homepage.png" width="41"> <h5 class="ms-3">Home</h5>
@@ -102,7 +102,7 @@ export default {
       followername: '',
       allfriends: [],
       msg: '',
-      load: false,
+      load: true,
       content: '',
       postMsg: ''
     }
@@ -124,27 +124,12 @@ export default {
   })
   .catch((err) => {
      console.log(err.response?.data || err);
-      // console.log(err);
+      
   });
-
-   axios.post(
-    'https://backendhivex.onrender.com/api/allfriends',
-    {
-        userid: this.studentid
-    }
-)
-.then((res) => {
-    console.log(res.data.followers);
-    this.friends = res.data.followers;
-})
-.catch((err) => {
-    console.log(err);
-});
   },
   methods:{
     logout(){
       localStorage.removeItem('studentid')
-      localStorage.removeItem('honeyprofilepicture')
       localStorage.removeItem('honeyfullname')
       this.$router.push('/login')
     },
@@ -153,6 +138,7 @@ export default {
     
     },
     createpost(){
+      this.load = false;
       const post=new FormData()
         post.append('student_id',this.studentid)
         post.append('content',this.content)
@@ -166,17 +152,28 @@ export default {
        })
         .then((res) => {
     if (res.data.status) {
+      this.load = true;
       this.msg = res.data.message;
       this.content = '';
       this.file = null;
     }
 })
 .catch((err) => {
-  console.log(err.response.data);
-  
-    this.msg = err.response?.data?.message || err.message;
-    this.content = '';
-    this.file = null;
+
+    if (err.response?.data?.errors) {
+
+        const firstField = Object.keys(err.response.data.errors)[0];
+        const errors = err.response.data.errors[firstField];
+
+        this.msg = errors[errors.length - 1];
+
+    } else {
+
+        this.msg =
+            err.response?.data?.message ||
+            err.message;
+    }
+
 });
       
     setTimeout(() => {
