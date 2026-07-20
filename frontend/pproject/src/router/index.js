@@ -37,6 +37,7 @@ import DashBoard from "@/views/DashBoard.vue";
 import CreatePost from "@/views/CreatePost.vue";
 import SettingPage from "@/views/SettingPage.vue";
 import HelloWorld from "@/components/HelloWorld.vue";
+import FriendPage from "@/views/FriendPage.vue";
 
 
 // import SignUp from "@/views/SignUp.vue";
@@ -151,9 +152,15 @@ const routes=[
         name:"groupcreate"
     },
     
+    
      {
-        path:'/friend',
+        path:'/friends',
         component:FriendView,
+        name:"friends"
+    },
+    {
+        path:'/friend',
+        component:FriendPage,
         name:"friend"
     },
     {
