@@ -69,7 +69,7 @@
     </div>
     <div class="col-12 col-md-8 p-2 mx-auto">
       <p>{{ post.content }}</p>
-<img :src="post.post_img" alt="post image" width="100%" style="max-height: 450px;" v-if="post.post_img!=null">
+<img :src="post.post_img" alt="post image" width="100%" style="max-height: 450px; object-fit: contain;" v-if="post.post_img">
       <div class="d-flex justify-content-between" >
   <!-- <p class="mt-5 text-primary">{{post.likes.length}} <span>Likes</span></p>
   <p class="mt-5 text-primary">{{post.comments.length}} <span>Comments</span></p> -->
