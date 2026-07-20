@@ -66,7 +66,8 @@ alt="picture" height="50px" width="50px" style="border-radius: 100%; border: non
           <img src="../assets/loading.png" alt="Loading..." class="d-block mx-auto spinner-animation" width="100px">
         </div>
         
-      <div class="w-100 mx-auto shadow row p-5">
+      <div v-else>
+        <div class="w-100 mx-auto shadow row p-5">
         <h5 class="" style="color:  rgb(0, 38, 77);">See who you can follow</h5>
   <div
     class="d-flex  bg-success border-2 overflow-auto gap-3 p-3 bg-light rounded shadow-sm"
@@ -113,6 +114,7 @@ alt="picture" height="50px" width="50px" style="border-radius: 100%; border: non
     </div>
   </div>
 </div>
+      </div>
 
  <div class="mx-auto shadow p-5" v-if="!Array.isArray(allposts)">
      <h3 class="text-center" style="color:  rgb(0, 38, 77);">No posts yet, follow friends to see posts</h3>
