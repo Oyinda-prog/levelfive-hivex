@@ -14,7 +14,7 @@
    <div><h5 class="mt-3 ms-3">{{fullname }}</h5></div>
          </div>
           <div class="d-flex my-2" style="cursor: pointer;" @click="this.$router.push('/')">
-     <img src="../assets/homepage.png" alt="img" width="30px" height="30px" class="d-block"> 
+     <img src="../assets/homepage.png" alt="img" width="41px"> 
      <p class="mt-3 ms-3">Home</p>
          </div>
          <div class="d-flex my-2" style="cursor: pointer;" @click="this.$router.push('/friend')" >
@@ -54,6 +54,8 @@
         </div>
         <!-- <div class="col-12 col-lg-9 offset-md-3 " v-if="allfriends.length>0"> -->
            <div class="col-12 col-lg-9 offset-md-3 " >
+            <div class="mt-5"></div>
+            <div class="mt-5"></div>
                   <div v-if="load===true" class="mx-auto col-12 col-md-9 ">
       <div class="text-center mt-5">
 <img src="../assets/loading.png" alt="" class="d-block mx-auto " width="100px">
