@@ -56,6 +56,10 @@
            <div class="col-12 col-lg-9 offset-md-3 " >
             <div class="mt-5"></div>
             <div class="mt-5"></div>
+            <div class="mt-5"></div>
+            <div class="mt-5"></div>
+            <div class="mt-5"></div>
+            <div class="mt-5"></div>
                   <div v-if="load===true" class="mx-auto col-12 col-md-9 ">
       <div class="text-center mt-5">
 <img src="../assets/loading.png" alt="" class="d-block mx-auto " width="100px">
