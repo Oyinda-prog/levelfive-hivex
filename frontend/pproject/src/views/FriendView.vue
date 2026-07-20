@@ -1,24 +1,7 @@
 <template>
   <NavBar/>
   <div class="container-fluid">
-      <div v-if="load===false" class="mx-auto col-12 col-md-9 ">
-      <div class="text-center mt-5">
-<img src="../assets/loading.png" alt="" class="d-block mx-auto " width="100px">
-      </div>
-</div>
-<div class="d-flex justify-content-between">
-<div>
-<div class=" mt-2">
-<button type="button" class="btn btn-primary position-relative" @click="this.$router.push('/friend')">
-<strong>Friends</strong>
-<span class=" badge rounded-pill bg-danger">
-  
-  <!-- <span ><strong>{{ allfriends.length }}</strong></span> -->
-</span>
-</button>
-</div>
-</div>
-</div>
+      
     <div class="">
       <div class="row">
       
@@ -27,8 +10,8 @@
         <div class="col-12 col-md-3 card childone d-md-block d-none d-sm-none">
      <div class="d-flex flex-column p-3 gap-3 mt-2">
          <div class="d-flex my-3">
-   <div><img :src="`http://localhost:8000/profilepictures/`+profilepicture" alt="picture" height="50px" width="50px" style="border-radius: 100%; border: none;"></div>
-   <div><h5 class="mt-3 ms-3">{{ followername }}</h5></div>
+   <div><img :src="profilepicture" alt="picture" height="50px" width="50px" style="border-radius: 100%; border: none;"></div>
+   <div><h5 class="mt-3 ms-3">{{fullname }}</h5></div>
          </div>
           <div class="d-flex my-2" style="cursor: pointer;" @click="this.$router.push('/')">
      <img src="../assets/homepage.png" alt="img" width="41px"> 
@@ -71,7 +54,11 @@
         </div>
         <!-- <div class="col-12 col-lg-9 offset-md-3 " v-if="allfriends.length>0"> -->
            <div class="col-12 col-lg-9 offset-md-3 " >
-
+                  <div v-if="load===false" class="mx-auto col-12 col-md-9 ">
+      <div class="text-center mt-5">
+<img src="../assets/loading.png" alt="" class="d-block mx-auto " width="100px">
+      </div>
+</div>
            <div class="row mx-auto col-12 col-md-10">
  <div v-for="friend in allfriends" v-bind:key="friend" class="col-lg-6 col-md-5 col-sm-6 col-12" >
               <div  class="shadow d-block m-3">
@@ -119,10 +106,11 @@ export default {
     data(){
 return{
     studentid:'',
-    profilepicture:"",
+    fullname:'',
+    profilepicture:'',
     followername:'',
     allfriends:[],
-    msg:"",
+    msg:'',
     load:true,
     allinvites:[]
 }
@@ -132,6 +120,20 @@ return{
         this.$router.push('/login')
       }
       this.studentid=JSON.parse(localStorage.getItem('studentid'))
+  axios.get(
+    `https://backendhivex.onrender.com/api/getcurrentstudent/${this.studentid}`
+  )
+  .then((res) => {
+    console.log(res.data.student);
+
+    this.profilepicture=res.data.student.profilepicture
+    this.fullname=res.data.student.fullname
+   
+  })
+  .catch((err) => {
+     console.log(err.response?.data || err);
+      // console.log(err);
+  });
 
       this.followername=JSON.parse(localStorage.getItem('honeyfullname')) 
       axios.get(`https://backendhivex.onrender.com/api/allfriends/${this.studentid}`).then((res)=>{
@@ -149,7 +151,7 @@ return{
     },
     methods:{
     logout(){
-      localStorage.removeItem('honeyuserid')
+      localStorage.removeItem('studentid')
       localStorage.removeItem('honeyprofilepicture')
       localStorage.removeItem('honeyfullname')
       this.$router.push('/login')
