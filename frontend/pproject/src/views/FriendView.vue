@@ -10,15 +10,15 @@
         <div class="col-12 col-md-3 card childone d-md-block d-none d-sm-none">
      <div class="d-flex flex-column p-3 gap-3 mt-2">
          <div class="d-flex my-3">
-   <div><img :src="profilepicture" alt="picture" height="30px" width="30px" style="border-radius: 100%; border: none;"></div>
+   <div><img :src="profilepicture" alt="picture" height="50px" width="50px" style="border-radius: 100%; border: none;"></div>
    <div><h5 class="mt-3 ms-3">{{fullname }}</h5></div>
          </div>
           <div class="d-flex my-2" style="cursor: pointer;" @click="this.$router.push('/')">
-     <img src="../assets/homepage.png" alt="img" width="41px"> 
-     <h5 class="mt-3 ms-3">Home</h5>
+     <img src="../assets/homepage.png" alt="img" width="30px"> 
+     <p class="mt-3 ms-3">Home</p>
          </div>
          <div class="d-flex my-2" style="cursor: pointer;" @click="this.$router.push('/friend')" >
-     <img src="../assets/friend.png" alt="img"> 
+     <img src="../assets/friend.png" alt="img" width="41px"> 
      <h5 class="mt-3 ms-3">Friends</h5>
          </div>
          <div class="d-flex my-2" @click="this.$router.push('/feeds')" style="cursor: pointer;">
