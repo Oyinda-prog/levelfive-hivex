@@ -354,13 +354,29 @@ body {
   background-attachment: fixed;
 }
 
-.childone {
+/* .childone {
   position: fixed;
   top: 100px;
   left: 0;
   overflow-y: auto;
   height: calc(100vh - 100px);
   width: 25%;
+} */
+/* 1. Ensure the navbar sits on top of all fixed elements */
+nav, .navbar {
+  position: relative; /* or fixed/sticky depending on your layout */
+  z-index: 1050 !important; /* Bootstrap's default top layer depth */
+}
+
+/* 2. Adjust the sidebar starting point and layer order */
+.childone {
+  position: fixed;
+  top: 70px; /* Reduced from 100px to match standard navbar heights */
+  left: 0;
+  overflow-y: auto;
+  height: calc(100vh - 70px);
+  width: 25%;
+  z-index: 1000; /* Keeps it under the navbar layer */
 }
 
 /* Optional: Adds a rotation spin styling to your loader image if desired */
