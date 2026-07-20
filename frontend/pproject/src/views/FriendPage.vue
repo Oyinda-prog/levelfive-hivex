@@ -62,7 +62,9 @@ alt="picture" height="50px" width="50px" style="border-radius: 100%; border: non
 
     </div>
       <div class="col-12 col-sm-12 col-md-6 mx-auto two offset-md-3">
-        
+         <div v-if="load" class="text-center py-5">
+          <img src="../assets/loading.png" alt="Loading..." class="d-block mx-auto spinner-animation" width="100px">
+        </div>
       <div class="w-100 mx-auto shadow row p-5">
         <h5 class="" style="color:  rgb(0, 38, 77);">See your friends</h5>
   <div
@@ -88,34 +90,14 @@ alt="picture" height="50px" width="50px" style="border-radius: 100%; border: non
 </div>
 
     <p>{{ student.fullname }}</p> 
-
       <div class="mt-5">
-        <!-- <button
-        v-if="student.is_following"
-        class="btn btn-outline-primary"
-        @click="follow(student.student_id)"
-        >
-        Unfollow
-       </button>
-
-       <button
-        v-else
-        class="btn btn-primary"
-        @click="follow(student.student_id)"
-       >
-        Follow
-       </button> -->
+        <button  class="btn btn-outline-primary">View</button>
       </div>
-
     </div>
   </div>
 </div>
-
 </div>
-
-
     </div>
-
   </div>
 </template>
 
@@ -127,7 +109,7 @@ export default {
    
 data(){
         return{
-    check:false,
+    load:true,
     msg:'',
     allfriends:[],
     studentid:"",
@@ -159,6 +141,7 @@ data(){
 
   axios.get(`https://backendhivex.onrender.com/api/allfriends/${this.studentid}`)
       .then((res) => {
+        this.load=false
         this.allfriends = res.data.friends || [];
         if(this.allfriends.length === 0) {
           this.msg = "You have no friends yet.";

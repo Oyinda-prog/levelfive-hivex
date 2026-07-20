@@ -195,7 +195,7 @@ body {
   <NavBar/>
   <div class="container-fluid">
     <div class="row">
-      <!-- Sidebar Left Column -->
+   
       <div class="col-12 col-md-3 card childone d-md-block d-none d-sm-none">
         <div class="d-flex flex-column p-3 gap-3 mt-2">
           <div class="d-flex my-3">
@@ -241,15 +241,14 @@ body {
         </div>
       </div>
 
-      <!-- Main Content Right Column Area -->
       <div class="col-12 col-lg-9 offset-md-3 pt-5">
         
-        <!-- 1. LOADING STATE (Shows only when load is true) -->
+       
         <div v-if="load" class="text-center py-5">
           <img src="../assets/loading.png" alt="Loading..." class="d-block mx-auto spinner-animation" width="100px">
         </div>
 
-        <!-- 2. DATA LOADED STATE (Shows when done loading and no messaging error) -->
+ 
         <div v-else-if="!load && msg === ''">
           <div class="row mx-auto col-12 col-md-10">
             <div v-for="friend in allfriends" :key="friend._id || friend.fullname" class="col-lg-6 col-md-5 col-sm-6 col-12">
@@ -266,7 +265,7 @@ body {
           </div>
         </div>
 
-        <!-- 3. ERROR / EMPTY STATE (Shows only when msg is populated) -->
+     
         <div v-if="!load && msg !== ''" class="d-flex justify-content-center align-items-center rounded p-4" style="min-height: 50vh; background: linear-gradient(to bottom, rgba(245, 249, 255, 0.8), rgba(214, 228, 245, 0.8));">
           <h3 class="text-center text-primary fs-4 fw-bold">{{ msg }}</h3>
           <button class="ms-2 btn btn-outline-primary" @click="$router.push('/')">Follow friends</button>
@@ -299,7 +298,7 @@ export default {
     }
     this.studentid = JSON.parse(localStorage.getItem('studentid'))
 
-    // Fetch user profile info
+ 
     axios.get(`https://backendhivex.onrender.com/api/getcurrentstudent/${this.studentid}`)
       .then((res) => {
         if(res.data?.student) {
@@ -311,7 +310,7 @@ export default {
         console.error(err.response?.data || err);
       });
 
-    // Fetch friends list
+  
     axios.get(`https://backendhivex.onrender.com/api/allfriends/${this.studentid}`)
       .then((res) => {
         this.allfriends = res.data.friends || [];
@@ -324,7 +323,7 @@ export default {
         console.error(err.response?.data || err.message);
       })
       .finally(() => {
-        this.load = false; // Always toggle loader off, whether request succeeds or fails
+        this.load = false; 
       });
   },
   methods: {
