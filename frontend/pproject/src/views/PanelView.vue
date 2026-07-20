@@ -62,6 +62,9 @@ alt="picture" height="50px" width="50px" style="border-radius: 100%; border: non
 
     </div>
       <div class="col-12 col-sm-12 col-md-6 mx-auto two offset-md-3">
+        <div v-if="load" class="text-center py-5">
+          <img src="../assets/loading.png" alt="Loading..." class="d-block mx-auto spinner-animation" width="100px">
+        </div>
         
       <div class="w-100 mx-auto shadow row p-5">
         <h5 class="" style="color:  rgb(0, 38, 77);">See who you can follow</h5>
@@ -88,13 +91,6 @@ alt="picture" height="50px" width="50px" style="border-radius: 100%; border: non
 </div>
 
     <p>{{ student.fullname }}</p> 
-
-      <!-- <div class="mt-5" v-if="student.follow_status==='follow'">
-        <button class="btn btn-outline-primary" @click="follow(student.student_id,student.fullname,student.follow_status)">Unfollow</button>
-      </div>
-      <div class="mt-5" v-else>
-        <button class="btn btn-outline-primary" @click="follow(student.student_id,student.fullname,student.follow_status)">Follow</button>
-      </div> -->
 
       <div class="mt-5">
         <button
@@ -337,6 +333,7 @@ export default {
 data(){
         return{
     check:false,
+    load:true,
     box:false,
     checklike:{},
     followcomment:'follow',
@@ -397,7 +394,7 @@ data(){
     
     axios.post('https://backendhivex.onrender.com/api/allusers',{student_id:this.studentid}).then((res)=>{
    
-    
+      this.load=false
        this.allstudents=res.data.students
        console.log(this.allstudents);
        
