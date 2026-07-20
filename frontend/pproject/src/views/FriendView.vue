@@ -14,7 +14,7 @@
    <div><h5 class="mt-3 ms-3">{{fullname }}</h5></div>
          </div>
           <div class="d-flex my-2" style="cursor: pointer;" @click="this.$router.push('/')">
-     <img src="../assets/homepage.png" alt="img" width="30px"> 
+     <img src="../assets/homepage.png" alt="img" width="20px" height="20px"> 
      <p class="mt-3 ms-3">Home</p>
          </div>
          <div class="d-flex my-2" style="cursor: pointer;" @click="this.$router.push('/friend')" >
