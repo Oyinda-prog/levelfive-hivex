@@ -62,7 +62,7 @@ alt="picture" height="50px" width="50px" style="border-radius: 100%; border: non
 
     </div>
       <div class="col-12 col-sm-12 col-md-6 mx-auto two offset-md-3">
-        <div v-if="load" class="text-center py-5">
+        <div v-if="load" class="text-center ">
           <img src="../assets/loading.png" alt="Loading..." class="d-block mx-auto spinner-animation" width="100px">
         </div>
         
