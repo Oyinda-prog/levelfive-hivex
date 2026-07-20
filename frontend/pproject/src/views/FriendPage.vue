@@ -72,7 +72,7 @@ alt="picture" height="50px" width="50px" style="border-radius: 100%; border: non
     <div
       class=" p-3 d-flex flex-column align-items-center"
       style="min-width: 300px;"
-      v-for="student in allstudents"
+      v-for="student in allfriends"
       :key="student.student_id"
     >
     <div
@@ -90,7 +90,7 @@ alt="picture" height="50px" width="50px" style="border-radius: 100%; border: non
     <p>{{ student.fullname }}</p> 
 
       <div class="mt-5">
-        <button
+        <!-- <button
         v-if="student.is_following"
         class="btn btn-outline-primary"
         @click="follow(student.student_id)"
@@ -104,7 +104,7 @@ alt="picture" height="50px" width="50px" style="border-radius: 100%; border: non
         @click="follow(student.student_id)"
        >
         Follow
-       </button>
+       </button> -->
       </div>
 
     </div>
@@ -129,7 +129,7 @@ data(){
         return{
     check:false,
     msg:'',
-    allstudents:[],
+    allfriends:[],
     studentid:"",
     fullname:"",
     profilepicture:''
@@ -156,6 +156,21 @@ data(){
   .catch((err) => {
      console.log(err.response?.data || err);
   });
+
+  axios.get(`https://backendhivex.onrender.com/api/allfriends/${this.studentid}`)
+      .then((res) => {
+        this.allfriends = res.data.friends || [];
+        if(this.allfriends.length === 0) {
+          this.msg = "You have no friends yet.";
+        }
+      })
+      .catch((err) => {
+        this.msg = "Failed to load friends.";
+        console.error(err.response?.data || err.message);
+      })
+      .finally(() => {
+        this.load = false; 
+      });
    
   },
   
