@@ -67,9 +67,9 @@
       <img :src="post.student.profilepicture" alt="profile picture" width="50px" height="50px" style="border-radius: 100%; border: none;" v-if="post.student.profilepicture!=null">
       <h5 class="m-3">{{ post.student.fullname }}</h5>
     </div>
-    <div class="col-12 col-md-8 p-2 mx-auto">
+    <div class="col-12 col-md-12 p-2">
       <p>{{ post.content }}</p>
-<img :src="post.post_img" alt="post image"   class="img-fluid d-block mx-auto" style="max-height: 450px; object-fit: contain;" v-if="post.post_img">
+<img :src="post.post_img" alt="post image"   class="img-fluid w-100 d-block mx-auto" style="max-height: 600px; object-fit: cover;" v-if="post.post_img">
       <div class="d-flex justify-content-between" >
   <!-- <p class="mt-5 text-primary">{{post.likes.length}} <span>Likes</span></p>
   <p class="mt-5 text-primary">{{post.comments.length}} <span>Comments</span></p> -->
