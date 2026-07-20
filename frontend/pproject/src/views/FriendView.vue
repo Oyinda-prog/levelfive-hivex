@@ -13,33 +13,16 @@
 <strong>Friends</strong>
 <span class=" badge rounded-pill bg-danger">
   
-  <span ><strong>{{ allfriends.length }}</strong></span>
+  <!-- <span ><strong>{{ allfriends.length }}</strong></span> -->
 </span>
 </button>
-</div>
-</div>
-<div class="d-flex justify-content-between">
-  <div>
-  
-<div class=" mt-2">
-<button type="button text-white" style="background-color:  rgb(0, 38, 77);color: white;" class="btn  position-relative"  @click="this.$router.push('/notification')">
-<strong>Notification</strong>
-<span class=" badge rounded-pill bg-danger">
-  
-  <span ><strong>{{ allinvites.length }}</strong></span>
-</span>
-</button>
-      </div>
-</div>
-<div class="mt-2 ms-1">
-<button class="btn btn-primary" @click="this.$router.push('/')">Home</button>
 </div>
 </div>
 </div>
     <div class="">
       <div class="row">
       
-      <h3 class="text-center text-primary"  v-if="allfriends.length>0">All Friends</h3>
+      <!-- <h3 class="text-center text-primary"  v-if="allfriends.length>0">All Friends</h3> -->
       
         <div class="col-12 col-md-3 card childone d-md-block d-none d-sm-none">
      <div class="d-flex flex-column p-3 gap-3 mt-2">
@@ -86,7 +69,8 @@
          
       </div>
         </div>
-        <div class="col-12 col-lg-9 offset-md-3 " v-if="allfriends.length>0">
+        <!-- <div class="col-12 col-lg-9 offset-md-3 " v-if="allfriends.length>0"> -->
+           <div class="col-12 col-lg-9 offset-md-3 " >
 
            <div class="row mx-auto col-12 col-md-10">
  <div v-for="friend in allfriends" v-bind:key="friend" class="col-lg-6 col-md-5 col-sm-6 col-12" >
