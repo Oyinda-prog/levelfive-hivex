@@ -10,7 +10,7 @@
         <div class="col-12 col-md-3 card childone d-md-block d-none d-sm-none">
      <div class="d-flex flex-column p-3 gap-3 mt-2">
          <div class="d-flex my-3">
-   <div><img :src="profilepicture" alt="picture" height="50px" width="50px" style="border-radius: 100%; border: none;"></div>
+   <div><img :src="profilepicture" alt="picture" height="30px" width="30px" style="border-radius: 100%; border: none;"></div>
    <div><h5 class="mt-3 ms-3">{{fullname }}</h5></div>
          </div>
           <div class="d-flex my-2" style="cursor: pointer;" @click="this.$router.push('/')">
@@ -54,7 +54,7 @@
         </div>
         <!-- <div class="col-12 col-lg-9 offset-md-3 " v-if="allfriends.length>0"> -->
            <div class="col-12 col-lg-9 offset-md-3 " >
-                  <div v-if="load===false" class="mx-auto col-12 col-md-9 ">
+                  <div v-if="load===true" class="mx-auto col-12 col-md-9 ">
       <div class="text-center mt-5">
 <img src="../assets/loading.png" alt="" class="d-block mx-auto " width="100px">
       </div>
@@ -108,7 +108,6 @@ return{
     studentid:'',
     fullname:'',
     profilepicture:'',
-    followername:'',
     allfriends:[],
     msg:'',
     load:true,
@@ -134,8 +133,6 @@ return{
      console.log(err.response?.data || err);
       // console.log(err);
   });
-
-      this.followername=JSON.parse(localStorage.getItem('honeyfullname')) 
       axios.get(`https://backendhivex.onrender.com/api/allfriends/${this.studentid}`).then((res)=>{
           this.load=false
           this.allfriends=res.data.friends
@@ -153,7 +150,6 @@ return{
     logout(){
       localStorage.removeItem('studentid')
       localStorage.removeItem('honeyprofilepicture')
-      localStorage.removeItem('honeyfullname')
       this.$router.push('/login')
     },
   },
