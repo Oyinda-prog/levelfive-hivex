@@ -1,12 +1,6 @@
 <template>
   <div class="container-fluid">
     <NavBar/>
-    <div v-if="load === false" class="mx-auto col-12 col-md-9">
-      <div class="text-center mt-5">
-        <img src="../assets/loading.png" alt="" class="d-block mx-auto" width="100px">
-      </div>
-    </div>
-
     <div>
       <div class="row">
         <div class="col-12 col-md-3 card childone d-md-block d-none d-sm-none">
@@ -51,6 +45,12 @@
         </div>
         <div class="col-12 col-lg-9 offset-md-3">
           <div class="mt-5"></div>
+          <div class="mt-5"></div>
+           <div v-if="load === false" class="mx-auto col-12 col-md-9">
+      <div class="text-center mt-5">
+        <img src="../assets/loading.png" alt="" class="d-block mx-auto" width="100px">
+      </div>
+    </div>
           <div class="create-post-card p-4 rounded shadow my-4">
               <p v-if="msg" class="mt-3 alert alert-primary">{{ msg }}</p>
               <h2 class="mb-4 text-center " style="color:  rgb(0, 38, 77);"> Make a Post</h2>
@@ -77,9 +77,7 @@
     @click="$refs.fileInput.click()"
   >
 </div>
-
-
-            <button class="btn post-btn w-100" @click="createpost">Post</button>
+<button class="btn post-btn w-100" @click="createpost">Post</button>
           </div>
 
           

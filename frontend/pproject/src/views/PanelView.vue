@@ -387,9 +387,6 @@ data(){
       // console.log(err);
   });
   
-      console.log(this.counter.picture);
-console.log(this.counter.returnprofile());
-
     
      axios.get('https://backendhivex.onrender.com/api/allposts').then((res)=>{
         

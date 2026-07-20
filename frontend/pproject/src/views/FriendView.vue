@@ -1,5 +1,5 @@
 <template>
-  
+  <NavBar/>
   <div class="container-fluid">
       <div v-if="load===false" class="mx-auto col-12 col-md-9 ">
       <div class="text-center mt-5">
@@ -94,9 +94,7 @@
                 <div class="card" style="width: 100%;max-height: 450px;">
  
    <img
-    :src="friend.profilepicture
-      ? `http://localhost:8000/profilepictures/${friend.profilepicture}`
-      : require('../assets/images/default.jpg')"
+    :src="friend.profilepicture || require('../assets/images/default.jpg')"
     alt="picture"
     style="width: 100%; height: 100%; object-fit: cover; display: block;"
     class="rounded"
@@ -130,53 +128,38 @@
 
 <script>
 import axios from 'axios'
+import NavBar from './NavBar.vue';
+
 
 export default {
     data(){
 return{
-    userid:'',
+    studentid:'',
     profilepicture:"",
     followername:'',
     allfriends:[],
     msg:"",
-    load:false,
+    load:true,
     allinvites:[]
 }
     },
     mounted(){
-      if(!localStorage.getItem('honeyuserid')){
+      if(!localStorage.getItem('studentid')){
         this.$router.push('/login')
       }
-      this.userid=JSON.parse(localStorage.getItem('honeyuserid'))
-      this.profilepicture=JSON.parse(localStorage.getItem('honeyprofilepicture'))
-      this.followername=JSON.parse(localStorage.getItem('honeyfullname'))
-        
-      
-      axios.post('http://127.0.0.1:8000/api/allfriends',{userid:this.userid}).then((res)=>{
-     
-        if(res.data.status==200){
-          this.load=true
-          this.allfriends=res.data.friends
-        }
-        else if(res.data.status==201){
-this.msg=res.data.msg
-this.load=true
-        }
-      
-      axios.post('http://127.0.0.1:8000/api/getinvite',{student_id:this.userid}).then((res)=>{
-   
-    if(res.data.status==200){
+      this.studentid=JSON.parse(localStorage.getItem('studentid'))
 
-        this.allinvites=res.data.allinvites
-     
-        
-    }
-    else if(res.data.status==500){
-this.msg=res.data.msg
-    }
+      this.followername=JSON.parse(localStorage.getItem('honeyfullname')) 
+      axios.get(`https://backendhivex.onrender.com/api/allfriends/${this.studentid}`).then((res)=>{
+          this.load=false
+          this.allfriends=res.data.friends
+          console.log(this.allfriends);
+          
        
-      
-    })
+      }).catch((err)=>{
+    
+        console.log(err.response?.data || err.message);
+        
       })
 
     },
@@ -186,8 +169,11 @@ this.msg=res.data.msg
       localStorage.removeItem('honeyprofilepicture')
       localStorage.removeItem('honeyfullname')
       this.$router.push('/login')
-    }
+    },
   },
+  components:{
+ NavBar
+}
 }
 </script>
 
