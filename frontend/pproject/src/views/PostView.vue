@@ -16,7 +16,7 @@
       <div class="col-12 col-lg-3 card childone d-md-block d-none d-sm-none">
 <div class="d-flex flex-column p-3 gap-3 mt-2">
          <div class="d-flex my-3">
-   <div><img :src="`http://localhost:8000/profilepictures/`+profilepicture" alt="picture" height="50px" width="50px" style="border-radius: 100%; border: none;"></div>
+   <div><img :src="profilepicture" alt="picture" height="50px" width="50px" style="border-radius: 100%; border: none;"></div>
    <div><h5 class="mt-3 ms-3">{{ this.fullname}}</h5></div>
          </div>
           <div class="d-flex my-2" style="cursor: pointer;" @click="this.$router.push('/')">
@@ -64,15 +64,15 @@
     <div class="mt-5"></div> 
    <div class="shadow col-12 col-md-10 p-2 mx-auto mt-5" v-for="post in posts" :key="post.id" >
     <div class="d-flex p-3 mt-5">
-      <img :src="`http://localhost:8000/profilepictures/`+post.student.profilepicture" alt="profile picture" width="50px" height="50px" style="border-radius: 100%; border: none;" v-if="post.student.profilepicture!=null">
+      <img :src="post.student.profilepicture" alt="profile picture" width="50px" height="50px" style="border-radius: 100%; border: none;" v-if="post.student.profilepicture!=null">
       <h5 class="m-3">{{ post.student.fullname }}</h5>
     </div>
     <div class="col-12 col-md-8 p-2 mx-auto">
       <p>{{ post.content }}</p>
-<img :src="`http://localhost:8000/postimages/`+post.post_img" alt="post image" width="100%" style="max-height: 450px;" v-if="post.post_img!=null">
+<img :src="post.post_img" alt="post image" width="100%" style="max-height: 450px;" v-if="post.post_img!=null">
       <div class="d-flex justify-content-between" >
-  <p class="mt-5 text-primary">{{post.likes.length}} <span>Likes</span></p>
-  <p class="mt-5 text-primary">{{post.comments.length}} <span>Comments</span></p>
+  <!-- <p class="mt-5 text-primary">{{post.likes.length}} <span>Likes</span></p>
+  <p class="mt-5 text-primary">{{post.comments.length}} <span>Comments</span></p> -->
       </div>
      </div>
   
@@ -91,7 +91,9 @@ data(){
 return{
     studentid:"",
     posts:[],
-    check:false
+    check:false,
+    fullname:'',
+    profilepicture:''
 }
 },
 methods:{
@@ -107,11 +109,26 @@ logout(){
       this.$router.push('/login')
     }
       this.studentid=JSON.parse(localStorage.getItem('studentid'))
-      this.profilepicture=JSON.parse(localStorage.getItem('honeyprofilepicture'))
-      this.fullname=JSON.parse(localStorage.getItem('honeyfullname'))
-    axios.post('https://backendhivex.onrender.com/api/mypost',{student_id:this.userid}).then((res)=>{
+  
+ axios.get(
+    `https://backendhivex.onrender.com/api/getcurrentstudent/${this.studentid}`
+  )
+  .then((res) => {
+    console.log(res.data.student);
+
+    this.profilepicture=res.data.student.profilepicture
+    this.fullname=res.data.student.fullname
+   
+  })
+  .catch((err) => {
+     console.log(err.response?.data || err);
+      // console.log(err);
+  });
+    axios.get(`https://backendhivex.onrender.com/api/mypost/${this.studentid}`).then((res)=>{
       if(res.data.status==200){
              this.posts=res.data.post 
+             console.log(this.posts);
+             
     }
     else if(res.data.status==201){
       this.check=true
