@@ -85,25 +85,38 @@ export default {
     data(){
         return{
           msg:"",
-            checkbox:false,
-            selected:'',
-        groupname:"",
-        privacy:false,
-        userid:"",
-        profilepicture:"",
-        name:"",
-        checkmsg:false
-        
+          checkbox:false,
+          selected:'',
+          groupname:"",
+          privacy:false,
+          studentid:"",
+          profilepicture:"",
+          name:"",
+          checkmsg:false
+          
         }
     },
   mounted(){
-    if(!localStorage.getItem('honeyuserid')){
+    if (!localStorage.getItem('studentid')){
       this.$router.push('/login')
     }
- this.userid=JSON.parse(localStorage.getItem('honeyuserid'))
-      this.profilepicture=JSON.parse(localStorage.getItem('honeyprofilepicture'))
-      this.name=JSON.parse(localStorage.getItem('honeyfullname'))
+    this.studentid=JSON.parse(localStorage.getItem('studentid'))
+  axios.get(
+    `https://backendhivex.onrender.com/api/getcurrentstudent/${this.studentid}`
+  )
+  .then((res) => {
+    console.log(res.data.student);
+
+    this.profilepicture=res.data.student.profilepicture
+    this.fullname=res.data.student.fullname
+   
+  })
+  .catch((err) => {
+     console.log(err.response?.data || err);
+      // console.log(err);
+  });
   },
+
   methods: {
   handleprivacy() {
    
@@ -117,42 +130,38 @@ export default {
   createGroup(){
     if(this.groupname=='' || !this.privacy){
       this.checkmsg=true
-this.msg='This cannot be empty'
-return
+      this.msg='This cannot be empty'
+      return
     }
-  else{
 
     let groupData = {
       groupname: this.groupname,
       uniquenumber:Math.round(Math.random()*100000000000)+ Math.round(Math.random()*100000000000),
-      student_id: this.userid,
+      student_id: this.studentid,
       privacy: this.privacy,
-      profilepicture: this.profilepicture,
-      fullname: this.name
     };
-    axios.post('http://127.0.0.1:8000/api/creategroup',groupData)
+    axios.post('https://backendhivex.onrender.com/api/creategroup',groupData)
     .then((res)=>{
-      if(res.data.status==201){
+      if(res.data.status===true){
         this.$router.push({name:'groupsparam',params:{id:res.data.group.uniquenumber}})
-this.msg=res.data.message
-      }
-      if(res.data.status==500){
-this.msg=res.data.message
-      }
-              
+        this.msg=res.data.message
+      }        
+    }).catch((err)=>{
+      this.msg = 'Failed to create. Try again!'
+      console.log(err.respose?.data || err.message);
+      
     })
-  }
-    
+     
     setTimeout(() => {
       this.msg=''
       this.checkmsg=false
-    }, 3000);
+    }, 6000);
   }
 },
 
 components:{
-    NavBar,
-    GroupComponent
+  NavBar,
+  GroupComponent
 }
 }
 </script>
