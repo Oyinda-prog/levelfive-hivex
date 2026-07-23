@@ -58,22 +58,31 @@
   </div>
   
   <div class="col-12 col-lg-7 offset-md-3 mt-5"   v-if="Array.isArray(posts)">
-    <div class="mt-5"></div> 
-   <div class="shadow col-12 col-md-10 p-2 mx-auto mt-5" v-for="post in posts" :key="post.id" >
-    <div class="d-flex p-3 mt-5">
-      <img :src="post.student.profilepicture" alt="profile picture" width="50px" height="50px" style="border-radius: 100%; border: none;" v-if="post.student.profilepicture!=null">
-      <h5 class="m-3">{{ post.student.fullname }}</h5>
-    </div>
-    <div class="col-12 col-md-12 p-2">
-      <p>{{ post.content }}</p>
-<img :src="post.post_img" alt="post image"   class="img-fluid w-100 d-block mx-auto" style="max-height: 600px; object-fit: cover;" v-if="post.post_img">
-      <div class="d-flex justify-content-between" >
-  <!-- <p class="mt-5 text-primary">{{post.likes.length}} <span>Likes</span></p>
-  <p class="mt-5 text-primary">{{post.comments.length}} <span>Comments</span></p> -->
-      </div>
-     </div>
-  
-   </div>
+    <div v-if="load" class="text-center py-5">
+          <img src="../assets/loading.png" alt="Loading..." class="d-block mx-auto spinner-animation" width="100px">
+        </div>
+
+ 
+        <div v-else-if="!load && msg === ''">
+          
+          <div class="shadow col-12 col-md-10 p-2 mx-auto mt-5" v-for="post in posts" :key="post.id" >
+           <div class="d-flex p-3 mt-5">
+             <img :src="post.student.profilepicture" alt="profile picture" width="50px" height="50px" style="border-radius: 100%; border: none;" v-if="post.student.profilepicture!=null">
+             <h5 class="m-3">{{ post.student.fullname }}</h5>
+           </div>
+           <div class="col-12 col-md-12 p-2">
+             <p>{{ post.content }}</p>
+       <img :src="post.post_img" alt="post image"   class="img-fluid w-100 d-block mx-auto" style="max-height: 600px; object-fit: cover;" v-if="post.post_img">
+             <div class="d-flex justify-content-between" >
+         
+             </div>
+            </div>
+         
+          </div>
+        </div>
+
+
+    <!-- <div class="mt-5"></div>  -->
   </div>
     </div>
   </div> 
@@ -90,7 +99,8 @@ return{
     posts:[],
     check:false,
     fullname:'',
-    profilepicture:''
+    profilepicture:'',
+    load:true
 }
 },
 methods:{
@@ -131,7 +141,12 @@ logout(){
       this.check=true
 this.msg=res.data.msg
     } 
-    })
+    }).catch((err)=>{
+        console.log(err);
+        
+    }) .finally(() => {
+        this.load = false; 
+      });
  
   },
   components:{
