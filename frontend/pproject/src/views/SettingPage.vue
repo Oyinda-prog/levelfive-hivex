@@ -132,7 +132,7 @@ export default {
   },
   data() {
     return {
-      userid: "",
+      studentid: "",
       profilepicture: "",
       fullname: "",
       profile: { bio: "" },
@@ -177,13 +177,13 @@ export default {
     },
   },
   mounted() {
-    if (!localStorage.getItem("honeyuserid")) {
+    if (!localStorage.getItem("studentid")) {
       this.$router.push("/login");
     }
 
-    this.userid = JSON.parse(localStorage.getItem("honeyuserid"));
+    this.studentid = JSON.parse(localStorage.getItem("studentid"));
 
-    axios.post("http://127.0.0.1:8000/api/getcurrentstudent", { id: this.userid })
+    axios.post("http://127.0.0.1:8000/api/getcurrentstudent", { id: this.studentid })
       .then((res) => {
         if (res.data.status == 200) {
           this.profilepicture = res.data.student.profilepicture;
@@ -200,7 +200,7 @@ export default {
       });
 
     axios
-      .post("http://127.0.0.1:8000/api/mypost", { student_id: this.userid })
+      .post("http://127.0.0.1:8000/api/mypost", { student_id: this.studentid })
       .then((res) => {
         if (res.data.status == 200) {
           this.posts = res.data.post;
@@ -209,7 +209,7 @@ export default {
 
     axios
       .post("http://127.0.0.1:8000/api/allfollowers", {
-        student_id: this.userid,
+        student_id: this.studentid,
       })
       .then((res) => {
         if (res.data.status == 200) {
@@ -219,7 +219,7 @@ export default {
 
     axios
       .post("http://127.0.0.1:8000/api/allfollowing", {
-        student_id: this.userid,
+        student_id: this.studentid,
       })
       .then((res) => {
         if (res.data.status == 200) {
@@ -233,13 +233,13 @@ export default {
  this.msg='Bio cannot be empty '
         }
       let obj = {
-        student_id: this.userid,
+        student_id: this.studentid,
         bio: this.bio,
       };
       axios.post("http://127.0.0.1:8000/api/createbio", obj).then((res) => {
         if(res.data.status==200){
             this.msg = res.data.msg;
-            axios.post("http://127.0.0.1:8000/api/getcurrentstudent", { id: this.userid })
+            axios.post("http://127.0.0.1:8000/api/getcurrentstudent", { id: this.studentid })
       .then((res) => {
         if (res.data.status == 200) {
           this.bio = res.data.student.bio;
@@ -257,17 +257,17 @@ export default {
         }
         setTimeout(() => {
           this.check = false;
-        }, 3000);
+        }, 6000);
       });
     },
     editname() {
       let obj = {
-        student_id: this.userid,
+        student_id: this.studentid,
         fullname: this.fullname,
       };
       axios.post("http://127.0.0.1:8000/api/editname", obj).then((res) => {
         if(res.data.status==200){
-axios.post("http://127.0.0.1:8000/api/getcurrentstudent", { id: this.userid })
+axios.post("http://127.0.0.1:8000/api/getcurrentstudent", { id: this.studentid })
       .then((res) => {
         if (res.data.status == 200) {
           this.fullname= res.data.student.fullname;
@@ -289,9 +289,7 @@ this.msg=res.data.msg
     },
 
     logout() {
-      localStorage.removeItem("honeyuserid");
-      localStorage.removeItem("honeyprofilepicture");
-      localStorage.removeItem("honeyfullname");
+      localStorage.removeItem("studentid");
       this.$router.push("/login");
     },
   },

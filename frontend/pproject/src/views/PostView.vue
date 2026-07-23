@@ -63,7 +63,7 @@
         </div>
 
  
-        <div v-else-if="!load && msg === ''">
+        <div v-else>
           
           <div class="shadow col-12 col-md-10 p-2 mx-auto mt-5" v-for="post in posts" :key="post.id" >
            <div class="d-flex p-3 mt-5">
