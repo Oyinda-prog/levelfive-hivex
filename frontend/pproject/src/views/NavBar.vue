@@ -8,7 +8,7 @@
             <img src="../assets/creategroup.png" alt="Start a group" class="d-md-block d-none" width="40px" height="40px"   @click="this.$router.push('/groups/create')" style="cursor: pointer;" title="Start a Group" >
             <img src="../assets/images/homeicon.jpg" alt="" width="30px" height="30px" class=" d-none d-md-block"  @click="this.$router.push('/')" style="cursor: pointer;" title="Home">
              <div class="d-flex ">
-<div class=" mt-2">
+<!-- <div class=" mt-2">
 <button title="Notification" type="button" class="btn btn-primary position-relative"  @click="this.$router.push('/notification')">
   <strong>Notification</strong>
   <span class=" badge rounded-pill bg-danger">
@@ -16,7 +16,7 @@
     <span ><strong>{{ allinvites.length }}</strong></span>
   </span>
 </button>
-        </div>
+        </div> -->
         <div class="mt-2 ms-2 d-none d-md-block" title="Settings" >
             <img src="../assets/setting.png" alt="" width="30px" height="30px" class="d-block"  @click="this.$router.push('/settings')" style="cursor: pointer;">
         </div>
