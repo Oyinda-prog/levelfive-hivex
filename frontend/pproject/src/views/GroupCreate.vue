@@ -129,7 +129,7 @@ export default {
   createGroup(){
     if(this.groupname=='' || !this.privacy){
       this.checkmsg=true
-      this.msg='The group name cannot be empty'
+      this.msg='The group name or Privacy cannot be empty'
       return
     }
 

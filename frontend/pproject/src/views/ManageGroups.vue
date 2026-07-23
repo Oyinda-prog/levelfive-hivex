@@ -6,9 +6,9 @@
         <div class="d-flex flex-column p-3 gap-3 mt-2">
           <div class="d-flex my-3">
             <div>
-              <img :src="`http://localhost:8000/profilepictures/`+profilepicture" alt="picture" height="50px" width="50px" style="border-radius: 100%; border: none;">
+              <img :src="profilepicture" alt="picture" height="50px" width="50px" style="border-radius: 100%; border: none;">
             </div>
-            <div><h5 class="mt-3 ms-3">{{ followername }}</h5></div>
+            <div><h5 class="mt-3 ms-3">{{ name }}</h5></div>
           </div>
           <div class="d-flex my-2" style="cursor: pointer;" @click="this.$router.push('/')">
             <img src="../assets/homepage.png" alt="img" width="41px"> 
@@ -59,11 +59,11 @@
           <div v-if="checkgroup" class="d-flex justify-content-center align-items-center" style="min-height: 300px;">
             <h5 class="text-muted">{{ msg }}</h5>
           </div>
-          <div v-for="g in group" :key="g.group_id" style="cursor: pointer;" @click="this.$router.push({name:'groupsparam',params:{id:g.uniquenumber}})">
+          <div v-for="group in groups" :key="group.group_id" style="cursor: pointer;" @click="this.$router.push({name:'groupsparam',params:{id:g.uniquenumber}})">
             <div class="group-card shadow p-5 col-md-7 col-12 mx-auto">
-              <img v-if="!g.profilepicture" src="../assets/images/default.jpg" alt="" class="rounded">
-              <img v-else :src="`http://localhost:8000/profilepictures/`+g.profilepicture" alt="picture" class="rounded">
-              <h5 class="mt-3 text-primary"><strong>{{ g.name }}</strong></h5>
+              <img  src="../assets/images/default.jpg" alt="" class="rounded">
+              <h5 class="mt-3 text-primary"><strong>{{ group.name }}</strong></h5>
+              <p>{{ group.privacy }}</p>
             </div>
           </div>
         </div>
@@ -83,35 +83,49 @@ export default {
       msg: "",
       btn: 'Create New Group',
       check: true,
-      userid: "",
+      studentid: "",
       profilepicture: "",
       name: "",
-      group: [],
+      groups: [],
       checkgroup: false
     }
   },
+  
   mounted() {
-    if (!localStorage.getItem('honeyuserid')) {
+    if (!localStorage.getItem('studentid')) {
       this.$router.push('/login')
     }
-    this.userid = JSON.parse(localStorage.getItem('honeyuserid'))
-    this.profilepicture = JSON.parse(localStorage.getItem('honeyprofilepicture'))
-    this.name = JSON.parse(localStorage.getItem('honeyfullname'))
+    this.studentid = JSON.parse(localStorage.getItem('studentid'))
+    axios.get(
+      `https://backendhivex.onrender.com/api/getcurrentstudent/${this.studentid}`
+    )
+    .then((res) => {
+      this.profilepicture=res.data.student.profilepicture
+      this.name=res.data.student.fullname
+      console.log(res.data);
+      
+    })
+    .catch((err) => {
+      console.log(err.response?.data || err.message);
+    });
+  
 
-    axios.post('http://127.0.0.1:8000/api/getallgroups', { student_id: this.userid }).then((res) => {
-      if (res.data.status == 200) {
-        this.group = res.data.allgroups
-      } else if (res.data.status == 201) {
+    axios.get(`https://backendhivex.onrender.com/api/getallgroups/${this.studentid}`).then((res) => {
+      if (res.data.status === true) {
+        this.groups = res.data.allgroups
+      } else if (res.data.status == false ) {
         this.msg = res.data.msg;
         this.checkgroup = true
       }
+    }).catch((err)=>{
+      this.msg = err.response?.data || err.message
+      console.log(err.response);
+      
     })
   },
   methods: {
     logout() {
-      localStorage.removeItem('honeyuserid')
-      localStorage.removeItem('honeyprofilepicture')
-      localStorage.removeItem('honeyfullname')
+      localStorage.removeItem('studentid')
       this.$router.push('/login')
     }
   }
