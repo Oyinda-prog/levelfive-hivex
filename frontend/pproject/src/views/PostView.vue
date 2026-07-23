@@ -35,11 +35,14 @@
      <img src="../assets/profilepicture.png" alt="img" width="41px"> 
      <h5 class="mt-3 ms-3">profile Picture</h5>
          </div>
-         <div class="d-flex my-2" @click="this.$router.push('/groups/create')" style="cursor: pointer;">
+         <div class="d-flex my-2" @click="this.$router.push('/groups/feed')" style="cursor: pointer;">
      <img src="../assets/group.png" alt="img" width="41px"> 
      <h5 class="mt-3 ms-3">Start a Group</h5>
          </div>
-        
+         <div class="d-flex my-2"  @click="this.$router.push('/marketplace')" style="cursor: pointer;">
+     <img src="../assets/marketplace.png" alt="img" width="41px"> 
+     <h5 class="mt-3 ms-3">Marketplace</h5>
+         </div>
          <div class="d-flex my-2" @click="$router.push('/createpost')" style="cursor: pointer;">
               <img src="../assets/createicon.png" width="41"> 
               <h5 class="ms-3 mt-3">Start Post</h5>
@@ -57,31 +60,23 @@
       </div>
   </div>
   
-  <div class="col-12 col-lg-7 offset-md-3 mt-5" >
-        <div v-if="load" class="text-center py-5">
-          <img src="../assets/loading.png" alt="Loading..." class="d-block mx-auto spinner-animation" width="100px">
-        </div>
-        <h1>hi</h1>
-        <div >
-          
-          <div  class="shadow col-12 col-md-10 p-2 mx-auto mt-5" v-for="post in posts" :key="post.id" >
-           <div class="d-flex p-3 mt-5">
-             <img :src="post.student.profilepicture" alt="profile picture" width="50px" height="50px" style="border-radius: 100%; border: none;" v-if="post.student.profilepicture!=null">
-             <h5 class="m-3">{{ post.student.fullname }}</h5>
-            </div>
-           <div class="col-12 col-md-12 p-2">
-             <p>{{ post.content }}</p>
-       <img :src="post.post_img" alt="post image"   class="img-fluid w-100 d-block mx-auto" style="max-height: 600px; object-fit: cover;" v-if="post.post_img">
-             <div class="d-flex justify-content-between" >
-         
-             </div>
-            </div>
-         
-          </div>
-        </div>
-
-
-    <!-- <div class="mt-5"></div>  -->
+  <div class="col-12 col-lg-7 offset-md-3 mt-5"   v-if="Array.isArray(posts)">
+    <div class="mt-5"></div> 
+   <div class="shadow col-12 col-md-10 p-2 mx-auto mt-5" v-for="post in posts" :key="post.id" >
+    <div class="d-flex p-3 mt-5">
+      <img :src="post.student.profilepicture" alt="profile picture" width="50px" height="50px" style="border-radius: 100%; border: none;" v-if="post.student.profilepicture!=null">
+      <h5 class="m-3">{{ post.student.fullname }}</h5>
+    </div>
+    <div class="col-12 col-md-12 p-2">
+      <p>{{ post.content }}</p>
+<img :src="post.post_img" alt="post image"   class="img-fluid w-100 d-block mx-auto" style="max-height: 600px; object-fit: cover;" v-if="post.post_img">
+      <div class="d-flex justify-content-between" >
+  <!-- <p class="mt-5 text-primary">{{post.likes.length}} <span>Likes</span></p>
+  <p class="mt-5 text-primary">{{post.comments.length}} <span>Comments</span></p> -->
+      </div>
+     </div>
+  
+   </div>
   </div>
     </div>
   </div> 
@@ -96,15 +91,16 @@ data(){
 return{
     studentid:"",
     posts:[],
-    check:true,
+    check:false,
     fullname:'',
-    profilepicture:'',
-    load:true
+    profilepicture:''
 }
 },
 methods:{
 logout(){
       localStorage.removeItem('studentid')
+      localStorage.removeItem('honeyprofilepicture')
+      localStorage.removeItem('honeyfullname')
       this.$router.push('/login')
     },
 },
@@ -128,25 +124,17 @@ logout(){
      console.log(err.response?.data || err);
       // console.log(err);
   });
-
     axios.get(`https://backendhivex.onrender.com/api/mypost/${this.studentid}`).then((res)=>{
       if(res.data.status==200){
-       
              this.posts=res.data.post 
              console.log(this.posts);
              
     }
     else if(res.data.status==201){
+      this.check=true
 this.msg=res.data.msg
-
     } 
-    }).catch((err)=>{
-        console.log(err);
-       
-        
-    }).finally(
-      this.load=false
-    )
+    })
  
   },
   components:{
