@@ -34,14 +34,11 @@
               <img src="../assets/profilepicture.png" width="41px"> 
               <h5 class="mt-3 ms-3">Profile Picture</h5>
             </div>
-            <div class="d-flex my-2 menu-item" @click="this.$router.push('/groups/feed')">
+            <div class="d-flex my-2 menu-item" @click="this.$router.push('/groups/create')">
               <img src="../assets/group.png" width="41px"> 
               <h5 class="mt-3 ms-3">Start a Group</h5>
             </div>
-            <div class="d-flex my-2 menu-item" @click="this.$router.push('/marketplace')">
-              <img src="../assets/marketplace.png" width="41px"> 
-              <h5 class="mt-3 ms-3">Marketplace</h5>
-            </div>
+            
             <div class="menu-item d-flex my-2 " @click="$router.push('/createpost')" style="cursor: pointer;">
               <img src="../assets/createicon.png" width="41"> <h5 class="ms-3 mt-3">Start Post</h5>
             </div>

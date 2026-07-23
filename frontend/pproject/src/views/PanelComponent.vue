@@ -26,13 +26,9 @@
      <img src="../assets/profilepicture.png" alt="img" width="41px"> 
      <h5 class="mt-3 ms-3">profile Picture</h5>
          </div>
-         <div class="d-flex my-2" @click="this.$router.push('/groups/feed')" style="cursor: pointer;">
+         <div class="d-flex my-2" @click="this.$router.push('/groups/create')" style="cursor: pointer;">
      <img src="../assets/group.png" alt="img" width="41px"> 
      <h5 class="mt-3 ms-3">Start a Group</h5>
-         </div>
-         <div class="d-flex my-2"  @click="this.$router.push('/marketplace')" style="cursor: pointer;">
-     <img src="../assets/marketplace.png" alt="img" width="41px"> 
-     <h5 class="mt-3 ms-3">Marketplace</h5>
          </div>
          <div class="d-flex my-2" @click="$router.push('/createpost')" style="cursor: pointer;">
               <img src="../assets/createicon.png" width="41"> 
