@@ -61,9 +61,7 @@
         <div v-if="load" class="text-center py-5">
           <img src="../assets/loading.png" alt="Loading..." class="d-block mx-auto spinner-animation" width="100px">
         </div>
-
- 
-        <div v-if="Array.isArray(posts)">
+        <div >
           
           <div  class="shadow col-12 col-md-10 p-2 mx-auto mt-5" v-for="post in posts" :key="post.id" >
            <div class="d-flex p-3 mt-5">
