@@ -56,9 +56,14 @@ By staying in this group, you agree to follow these rules and keep the community
 <h4>{{group.name}}</h4>
  <div v-if="group.privacy=='Private'"> <img src="../assets/padlock.png" alt="" width="10px" height="10px"> {{ group.privacy }} group. <span>{{ 1 }} member</span></div>
     <div v-if="group.privacy=='Public'"> <img src="../assets/public.png" alt="" width="10px" height="10px"> {{ group.privacy }} group. <span>{{ 1 }} member</span></div>
-
+      <div class="mt-2"></div>
     <div class="d-flex">
-        <img src="../assets/images/default.jpg" alt="" width="50px" class="rounded-pill-" height="50px"  style="border-radius: 100%; border: none;">
+        <img :src="profilepicture || require('../assets/images/default.jpg')" alt="" width="50px" class="rounded-pill-" height="50px"  style="border-radius: 100%; border: none;">
+        <img
+    :src="profilepicture || require('../assets/images/default.jpg')"
+alt="picture" height="50px" width="50px" style="border-radius: 100%; border: none;"
+    class="rounded"
+  />
         <div class="m-3">
             <h5>{{ name }}</h5>
         <h6>Admin</h6>
@@ -127,8 +132,8 @@ By staying in this group, you agree to follow these rules and keep the community
     
      <div class="m-2 p-2 shadow">
         <div class="disable">
-            <div v-if="group.profilepicture" class="d-flex mt-3">
-        <img :src="`http://localhost:8000/profilepictures/`+group.profilepicture" alt="" width="50px" class="rounded-pill-" height="50px"  style="border-radius: 100%; border: none;">
+            <div  class="d-flex mt-3">
+        <img :src="profilepicture" alt="" width="50px" class="rounded-pill-" height="50px"  style="border-radius: 100%; border: none;">
         <div class="ms-3 mb-5 shadow">
             <input type="text" class="form-control shadow-none" placeholder="Write something" style="max-width: 500px !important;">
         </div>
@@ -139,7 +144,8 @@ By staying in this group, you agree to follow these rules and keep the community
         <img :src="`http://localhost:8000/profilepictures/`+group.profilepicture" alt="" width="50px" class="rounded-pill-" height="50px"  style="border-radius: 100%; border: none;">
         <div class="ms-3">
             <p><strong>{{ name }}</strong> created the group <strong>{{ group.name }}</strong></p> 
-        <p class=""><span class="bg-primary text-white rounded-2 p-2">Admin</span> <span v-if="hour>59">{{ day }}</span> <span v-if="hour>0">{{ hour }} h. </span> <span v-if="min!=0">{{ min }} min </span >   <img v-if="group.privacy=='Public'" src="../assets/public.png" alt="" width="10px" height="10px"> <img v-if="group.privacy=='Private'" src="../assets/padlock.png" alt="" width="10px" height="10px"></p>
+        <p class=""><span class="bg-primary text-white rounded-2 p-2">Admin</span> <span v-if="hour>59">{{ day }}</span> <span v-if="hour>0">{{ hour }} h. </span> <span v-if="min!=0">{{ min }} min </span >   
+            <img v-if="group.privacy=='Public'" src="../assets/public.png" alt="" width="10px" height="10px"> <img v-if="group.privacy=='Private'" src="../assets/padlock.png" alt="" width="10px" height="10px"></p>
         </div>
     </div>
     <hr>
@@ -171,7 +177,7 @@ By staying in this group, you agree to follow these rules and keep the community
         <div>
             <p class="text-primary alert alert-success" v-if="msg!=''" >{{ msg }}</p>
            <div  class="d-flex mt-3">
-        <img :src="`http://localhost:8000/profilepictures/`+group.profilepicture" alt="" width="50px" class="rounded-pill-" height="50px"  style="border-radius: 100%; border: none;">
+        <img :src="profilepicture" alt="" width="50px" class="rounded-pill-" height="50px"  style="border-radius: 100%; border: none;">
         <div class="ms-3 mb-5">
             <h5>{{ name }}</h5>
         </div>
@@ -206,7 +212,7 @@ By staying in this group, you agree to follow these rules and keep the community
       <div class="modal-body">
         <div>
            <div class="d-flex mt-3">
-        <img :src="`http://localhost:8000/profilepictures/`+group.profilepicture" alt="" width="50px" class="rounded-pill-" height="50px"  style="border-radius: 100%; border: none;">
+        <img :src="profilepicture" alt="" width="50px" class="rounded-pill-" height="50px"  style="border-radius: 100%; border: none;">
         <div class="ms-3 mb-5">
             <h5>{{ name }}</h5>
         </div>
@@ -263,7 +269,7 @@ mounted(){
     .then((res) => {
         this.profilepicture=res.data.student.profilepicture
         this.name=res.data.student.fullname
-        console.log(res.data);
+        console.log(res.data, this.profilepicture);
     })
     .catch((err) => {
         console.log(err.response?.data || err.message);
