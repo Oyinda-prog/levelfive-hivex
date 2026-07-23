@@ -112,8 +112,12 @@ export default {
 
     axios.get(`https://backendhivex.onrender.com/api/getallgroups/${this.studentid}`).then((res) => {
       if (res.data.status === true) {
+        console.log(res.data);
+        
         this.groups = res.data.allgroups
       } else if (res.data.status == false ) {
+        console.log(res.data);
+        
         this.msg = res.data.msg;
         this.checkgroup = true
       }
