@@ -143,9 +143,10 @@ export default {
     .then((res)=>{
       if(res.data.status===true){
         console.log(res.data);
-        
-        // this.$router.push({name:'groupsparam',params:{id:res.data.group.uniquenumber}})
         this.msg=res.data.message
+        setTimeout(() => {
+          this.$router.push({name:'groupsparam',params:{id:res.data.group.uniquenumber}})
+        }, 4000);
       }        
     }).catch((err)=>{
       this.msg = 'Failed to create. Try again!'
