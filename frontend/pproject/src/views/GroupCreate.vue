@@ -10,10 +10,10 @@
     </div>
       <h2 class="mt-5"><strong>Create Group</strong></h2>
       <div class="d-flex  my-4 p-3">
-        <img :src="`http://localhost:8000/profilepictures/`+profilepicture" alt="picture" height="50px" width="50px" style="border-radius: 100%; border: none;">
+        <img :src="profilepicture" alt="picture" height="50px" width="50px" style="border-radius: 100%; border: none;">
         <div class="ms-3 mt-2">
           <h5>{{ name }}</h5>
-        <h6>Adim</h6>
+        <h6>Admin</h6>
         </div>
       </div> 
       
@@ -105,15 +105,14 @@ export default {
     `https://backendhivex.onrender.com/api/getcurrentstudent/${this.studentid}`
   )
   .then((res) => {
-    console.log(res.data.student);
-
     this.profilepicture=res.data.student.profilepicture
-    this.fullname=res.data.student.fullname
+    this.name=res.data.student.fullname
+    console.log(res.data);
+    
    
   })
   .catch((err) => {
-     console.log(err.response?.data || err);
-      // console.log(err);
+     console.log(err.response?.data || err.message);
   });
   },
 
@@ -130,7 +129,7 @@ export default {
   createGroup(){
     if(this.groupname=='' || !this.privacy){
       this.checkmsg=true
-      this.msg='This cannot be empty'
+      this.msg='The group name cannot be empty'
       return
     }
 
@@ -151,7 +150,7 @@ export default {
       console.log(err.respose?.data || err.message);
       
     })
-     
+
     setTimeout(() => {
       this.msg=''
       this.checkmsg=false
