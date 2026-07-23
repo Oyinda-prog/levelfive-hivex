@@ -142,7 +142,9 @@ export default {
     axios.post('https://backendhivex.onrender.com/api/creategroup',groupData)
     .then((res)=>{
       if(res.data.status===true){
-        this.$router.push({name:'groupsparam',params:{id:res.data.group.uniquenumber}})
+        console.log(res.data);
+        
+        // this.$router.push({name:'groupsparam',params:{id:res.data.group.uniquenumber}})
         this.msg=res.data.message
       }        
     }).catch((err)=>{
