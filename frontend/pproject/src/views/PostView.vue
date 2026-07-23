@@ -58,7 +58,7 @@
   </div>
   
   <div class="col-12 col-lg-7 offset-md-3 mt-5"   v-if="Array.isArray(posts)">
-    <div v-if="load" class="text-center py-5">
+        <div v-if="load" class="text-center py-5">
           <img src="../assets/loading.png" alt="Loading..." class="d-block mx-auto spinner-animation" width="100px">
         </div>
 
@@ -97,7 +97,7 @@ data(){
 return{
     studentid:"",
     posts:[],
-    check:false,
+    check:true,
     fullname:'',
     profilepicture:'',
     load:true
@@ -106,8 +106,6 @@ return{
 methods:{
 logout(){
       localStorage.removeItem('studentid')
-      localStorage.removeItem('honeyprofilepicture')
-      localStorage.removeItem('honeyfullname')
       this.$router.push('/login')
     },
 },
@@ -131,22 +129,21 @@ logout(){
      console.log(err.response?.data || err);
       // console.log(err);
   });
+
     axios.get(`https://backendhivex.onrender.com/api/mypost/${this.studentid}`).then((res)=>{
+      this.check=false
       if(res.data.status==200){
              this.posts=res.data.post 
              console.log(this.posts);
              
     }
     else if(res.data.status==201){
-      this.check=true
 this.msg=res.data.msg
     } 
     }).catch((err)=>{
         console.log(err);
         
-    }) .finally(() => {
-        this.load = false; 
-      });
+    })
  
   },
   components:{
