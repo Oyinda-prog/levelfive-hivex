@@ -131,17 +131,19 @@ logout(){
   });
 
     axios.get(`https://backendhivex.onrender.com/api/mypost/${this.studentid}`).then((res)=>{
-      this.check=false
       if(res.data.status==200){
+        this.check=false
              this.posts=res.data.post 
              console.log(this.posts);
              
     }
     else if(res.data.status==201){
 this.msg=res.data.msg
+this.check=false
     } 
     }).catch((err)=>{
         console.log(err);
+        this.check=false
         
     })
  
