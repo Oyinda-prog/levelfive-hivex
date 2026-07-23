@@ -56,15 +56,8 @@ By staying in this group, you agree to follow these rules and keep the community
 <h4>{{group.name}}</h4>
  <div v-if="group.privacy=='Private'"> <img src="../assets/padlock.png" alt="" width="10px" height="10px"> {{ group.privacy }} group. <span>{{ 1 }} member</span></div>
     <div v-if="group.privacy=='Public'"> <img src="../assets/public.png" alt="" width="10px" height="10px"> {{ group.privacy }} group. <span>{{ 1 }} member</span></div>
-    
-    <div v-if="group.profilepicture" class="d-flex mt-4">
-        <img :src="`http://localhost:8000/profilepictures/`+group.profilepicture" alt="" width="50px" class="rounded-pill-" height="50px"  style="border-radius: 100%; border: none;">
-        <div class="ms-3">
-            <h5>{{ name }}</h5>
-        <p>Admin</p>
-        </div>
-    </div>
-    <div v-else class="d-flex">
+
+    <div class="d-flex">
         <img src="../assets/images/default.jpg" alt="" width="50px" class="rounded-pill-" height="50px"  style="border-radius: 100%; border: none;">
         <div class="m-3">
             <h5>{{ name }}</h5>
@@ -241,7 +234,7 @@ export default {
     data(){
 return{
     check:true,
-    userid:"",
+    studentid:"",
     profilepicture:'',
     name:"",
     group:{},
@@ -260,61 +253,76 @@ components:{
     NavBar
 },
 mounted(){
-    if(!localStorage.getItem('honeyuserid')){
+    if(!localStorage.getItem('studentid')){
       this.$router.push('/login')
     }
-    this.userid=JSON.parse(localStorage.getItem('honeyuserid'))
-    this.profilepicture=JSON.parse(localStorage.getItem('honeyprofilepicture'))
-    this.name=JSON.parse(localStorage.getItem('honeyfullname'))
-axios.post('http://127.0.0.1:8000/api/allusers',{student_id:this.userid}).then((res)=>{
+    this.studentid=JSON.parse(localStorage.getItem('studentid'))
+    axios.get(
+    `https://backendhivex.onrender.com/api/getcurrentstudent/${this.studentid}`
+    )
+    .then((res) => {
+        this.profilepicture=res.data.student.profilepicture
+        this.name=res.data.student.fullname
+        console.log(res.data);
+    })
+    .catch((err) => {
+        console.log(err.response?.data || err.message);
+    });
+
+    axios.post('http://127.0.0.1:8000/api/creategroup/api/allusers',{student_id:this.studentid}).then((res)=>{
        this.allstudents=res.data.students
     })
 
     let post={
-     student_id:this.userid,
+     student_id:this.studentid,
      uniquenumber:this.$route.params.id
 
     }
-axios.post('http://127.0.0.1:8000/api/getgrouppost',post).then((res)=>{
-        if(res.data.status==201){
-this.grouppost=res.data.posts
-        }
-        else if(res.data.status==501){
-    this.msg=res.data.msg
-        }
-        
-       })
-       .catch((err)=>{
-        this.msg=err
-       })
 
-    let groupData={
-        student_id:this.userid,
-        uniquenumber:this.$route.params.id
-    }
-    axios.post('http://127.0.0.1:8000/api/getgroup',groupData)
+    axios.post('http://127.0.0.1:8000/api/getgrouppost',post).then((res)=>{
+            if(res.data.status==201){
+    this.grouppost=res.data.posts
+            }
+            else if(res.data.status==501){
+        this.msg=res.data.msg
+            }
+            
+        })
+        .catch((err)=>{
+            this.msg=err
+        })
+
+    axios.get(`https://backendhivex.onrender.com/api/getgroup/${this.$route.params.id}`)
     .then((res)=>{
-      if(res.data.status==200){
+        console.log(res.data);
+        
+      if(res.data.status==true){
     this.group_id=res.data.group.group_id
-        const givenDate = new Date(res.data.group.created_at);
-const now = new Date();
+    const givenDate = new Date(res.data.group.created_at);
+    const now = new Date();
 
-const diffMs = now - givenDate;
+    const diffMs = now - givenDate;
 
-const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-this.day = days;
-const hours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-this.hour = hours;
-const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
-this.min=minutes;
-this.group=res.data.group      
+    const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    this.day = days;
+    const hours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    this.hour = hours;
+    const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+    this.min=minutes;
+    this.group=res.data.group      
       }
-      if(res.data.status==500){
+      if(res.data.status==false){
        this.msg= res.data.message
       }
         
     })
+    .catch((err)=>{
+        this.msg = err.response?.data 
+        console.log(err.response?.data || err.message);
+        
+    })
 },
+
 methods:{
     sendinvite(id){
         let data={
