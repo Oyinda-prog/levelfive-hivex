@@ -8,9 +8,9 @@
     <div class="alert alert-primary" v-if="checkmsg" >
       {{ msg }}
     </div>
-      <h2 class="mt-5"><strong>Create Group</strong></h2>
+      <h2 class="mt-5"><strong class="text-primary">Create Group</strong></h2>
       <div class="d-flex  my-4 p-3">
-        <img :src="profilepicture" alt="picture" height="50px" width="50px" style="border-radius: 100%; border: none;">
+        <img :src="profilepicture || require('../assets/images/default.jpg')" alt="picture" height="50px" width="50px" style="border-radius: 100%; border: none;">
         <div class="ms-3 mt-2">
           <h5>{{ name }}</h5>
         <h6>Admin</h6>
