@@ -18,7 +18,7 @@
     <div class="p-3 m-2">
  <h6>What's on your mind?</h6>
  <p>Start a discussion, share an update, or ask a question — this is your space to connect with the group!</p>
- <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Create a post</button>
+ <button class="btn btn-outline-primary d-block m-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Create a post</button>
  <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModalone">Invite People to Join</button>
     </div>
 </div>

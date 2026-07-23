@@ -20,34 +20,6 @@
 <h class="ms-4">{{ 1 }} member</h>
 </div>
 <hr>
-<div class="d-flex w-25 justify-content-between mx-4">
-  <div>About</div>
-  <div>Posts</div>
-  <div>Members</div>
-  <div>Events</div>
-
-</div>
-<div class="row disabled" >
-  <div class="col-12 col-md-7">
-    <div class="p-5 m-2 shadow">
-     <div class="d-flex">
-     <input type="text" class=" shadow-none rounded-3 form-control shadow-none" placeholder="What's on your mind?...">
-     </div>
-    </div>
-  </div>
-  <div class="col-12 col-md-5">
-    <div class="p-5 m-2 shadow">
-      <div class="d-flex justify-content-between">
-        <div class="d-flex">
-          <!-- <img src="../assets/padlock.png" width="30" height="30" alt="private" class="me-5" style="filter: grayscale();opacity: 50%;"> -->
-          <p class="ms-3" aria-disabled="true">Share something with your group</p>
-        </div>
-        <button class="btn btn-primary" disabled>Post</button>
-      </div>
-
-    </div>
-  </div>
-</div>
 </div>
          </div>
 </template>

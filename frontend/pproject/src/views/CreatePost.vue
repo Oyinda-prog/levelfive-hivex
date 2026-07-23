@@ -23,7 +23,7 @@
             <div class="menu-item" @click="$router.push('/profilepicture')">
               <img src="../assets/profilepicture.png" width="41"> <h5 class="ms-3">Profile Picture</h5>
             </div>
-            <div class="menu-item" @click="$router.push('/groups/feed')">
+            <div class="menu-item" @click="$router.push('/groups/create')">
               <img src="../assets/group.png" width="41"> <h5 class="ms-3">Start a Group</h5>
             </div>
             <div class="menu-item" @click="$router.push('/marketplace')">
