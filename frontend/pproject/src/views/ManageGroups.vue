@@ -59,7 +59,7 @@
           <div v-if="checkgroup" class="d-flex justify-content-center align-items-center" style="min-height: 300px;">
             <h5 class="text-muted">{{ msg }}</h5>
           </div>
-          <div v-for="group in groups" :key="group.group_id" style="cursor: pointer;" @click="this.$router.push({name:'groupsparam',params:{id:g.uniquenumber}})">
+          <div v-for="group in groups" :key="group.group_id" style="cursor: pointer;" @click="this.$router.push({name:'groupsparam',params:{id:group.uniquenumber}})">
             <div class="group-card shadow p-5 col-md-7 col-12 mx-auto">
               <img  src="../assets/images/default.jpg" alt="" class="rounded">
               <h5 class="mt-3 text-primary"><strong>{{ group.name }}</strong></h5>
