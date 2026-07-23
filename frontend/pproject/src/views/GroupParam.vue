@@ -59,11 +59,7 @@ By staying in this group, you agree to follow these rules and keep the community
       <div class="mt-2"></div>
     <div class="d-flex">
         <img :src="profilepicture || require('../assets/images/default.jpg')" alt="" width="50px" class="rounded-pill-" height="50px"  style="border-radius: 100%; border: none;">
-        <img
-    :src="profilepicture || require('../assets/images/default.jpg')"
-alt="picture" height="50px" width="50px" style="border-radius: 100%; border: none;"
-    class="rounded"
-  />
+        
         <div class="m-3">
             <h5>{{ name }}</h5>
         <h6>Admin</h6>
