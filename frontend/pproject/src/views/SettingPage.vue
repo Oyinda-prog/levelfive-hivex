@@ -40,7 +40,7 @@
       <div class="container">
     
         <div class=" shadow p-3  mb-3">
-          <div class="alert alert-primary " v-if="msg!=='' ">{{ msg }}</div>
+          <div class="alert alert-primary " >{{ msg }}</div>
           <div class="card-body">
             <h5 class="card-title">Bio</h5>
             <div  class="text-center text-muted">
@@ -217,6 +217,8 @@ export default {
         if (res.data.status == true){
           this.msg = res.data.message;
           this.bio = res.data.student.bio
+          console.log(res.data);
+          
   
         }
         else if(res.data.status==false){
