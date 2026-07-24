@@ -51,7 +51,7 @@ By staying in this group, you agree to follow these rules and keep the community
     </div>
     <div class="col-md-9 col-12 mt-5 shadow">
      <div class="mt-5">
-        <img src="../assets/groupbg.png" alt="" class="w-100 rounded d-block m-5" style="filter: grayscale(100%);">
+        <img src="../assets/groupbg.png" alt="" class="w-100 rounded d-block mt-2" style="filter: grayscale(100%);">
         <div class="p-3">
 <h4>{{group.name}}</h4>
  <div v-if="group.privacy=='Private'"> <img src="../assets/padlock.png" alt="" width="10px" height="10px"> {{ group.privacy }} group. <span>{{ 1 }} member</span></div>
