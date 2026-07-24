@@ -43,9 +43,8 @@
           <div class="alert alert-primary " v-if="msg!=='' ">{{ msg }}</div>
           <div class="card-body">
             <h5 class="card-title">Bio</h5>
-            <p v-if="bio !== null">{{ bio }}</p>
             <div  class="text-center text-muted">
-              <p v-if="bio==null">No bio yet.</p>
+              <p v-if="bio===null">No bio yet.</p>
               <div class="shadow border col-md-8 col-12 mx-auto">
                 <textarea
                   name=""
