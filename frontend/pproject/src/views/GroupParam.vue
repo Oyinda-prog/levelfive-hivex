@@ -135,25 +135,8 @@ By staying in this group, you agree to follow these rules and keep the community
         </div>
         </div>
         </div>
-        <hr>
-<div v-if="group.profilepicture" class="d-flex mt-3">
-        <img :src="`http://localhost:8000/profilepictures/`+group.profilepicture" alt="" width="50px" class="rounded-pill-" height="50px"  style="border-radius: 100%; border: none;">
-        <div class="ms-3">
-            <p><strong>{{ name }}</strong> created the group <strong>{{ group.name }}</strong></p> 
-        <p class=""><span class="bg-primary text-white rounded-2 p-2">Admin</span> <span v-if="hour>59">{{ day }}</span> <span v-if="hour>0">{{ hour }} h. </span> <span v-if="min!=0">{{ min }} min </span >   
-            <img v-if="group.privacy=='Public'" src="../assets/public.png" alt="" width="10px" height="10px"> <img v-if="group.privacy=='Private'" src="../assets/padlock.png" alt="" width="10px" height="10px"></p>
-        </div>
-    </div>
-    <hr>
+        
      </div>
-</div>
-<div class="col-md-6 col-12 shadow">
-    <div class="p-2 m-2">
- <h6> What's on your mind?</h6>
- <p>Start a discussion, share an update, or ask a question — this is your space to connect with the group!</p>
- <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Create a post</button>
- 
-    </div>
 </div>
       </div>  
      </div>    
