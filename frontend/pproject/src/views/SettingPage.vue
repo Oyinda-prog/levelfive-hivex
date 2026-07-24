@@ -195,8 +195,8 @@ export default {
         month: "long",
         year: "numeric",
       });
-      console.log(this.bio, this.joinedat, this.followers, this.following, this.posts, this.profilepicture, this.bio);
-      // console.log(res.data);
+      // console.log(this.bio, this.joinedat, this.followers, this.following, this.posts, this.profilepicture, this.bio);
+      console.log(res.data);
       
     })
     .catch((err) => {
