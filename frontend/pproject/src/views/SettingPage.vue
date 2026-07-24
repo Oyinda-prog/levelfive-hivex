@@ -43,7 +43,7 @@
           <div class="alert alert-primary " v-if="check">{{ msg }}</div>
           <div class="card-body">
             <h5 class="card-title">Bio</h5>
-            <p v-if="bio !== null">{{ profile.bio }}</p>
+            <p v-if="bio !== null">{{ bio }}</p>
             <div  class="text-center text-muted">
               <p v-if="bio==null">No bio yet.</p>
               <div class="shadow border col-md-8 col-12 mx-auto">
@@ -184,18 +184,18 @@ export default {
       `https://backendhivex.onrender.com/api/getsummary/${this.studentid}`
     )
     .then((res) => {
-      this.profilepicture=res.data.student.profilepicture
-      this.name=res.data.student.fullname
-      this.bio = res.data.student.bio;
-      this.post= res.data.posts
+      this.profilepicture=res.data.profilepicture
+      this.name=res.data.fullname
+      this.bio = res.data.bio;
+      this.posts= res.data.posts
       this.followers=res.data.followers
       this.following=res.data.following
-      let date = res.data.student.created_at;
+      let date = res.data.created_at;
       this.joinedat = new Date(date).toLocaleDateString("en-US", {
         month: "long",
         year: "numeric",
       });
-      console.log(this.bio, this.joinedat, this.followers, this.following);
+      console.log(this.bio, this.joinedat, this.followers, this.following, this.posts, this.profilepicture, this.bio);
       // console.log(res.data);
       
     })
