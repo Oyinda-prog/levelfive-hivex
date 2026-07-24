@@ -42,8 +42,8 @@
         <div class=" shadow p-3  mb-3">
           <div class="alert alert-primary " v-if="msg" >{{ msg }}</div>
           <div class="card-body">
-            <h5 class="card-title">Bio</h5>
             <div  class="text-center text-muted">
+              <h5 class="card-title text-primary">Bio</h5>
               <p v-if="bio===null">No bio yet.</p>
               <div class="shadow border col-md-8 col-12 mx-auto">
                 <textarea
@@ -80,7 +80,7 @@
             <h5 class="card-title my-2">Information</h5>
             <p><strong>Joined:</strong> {{ this.joinedat }}</p>
             <div class="d-flex justify-content-between">
-              <span class="mt-2"><strong>Name: </strong></span>
+              <span class="mt-2"><strong>Full Name: </strong></span>
               <input
                 type="text"
                 v-model="fullname"
@@ -184,7 +184,7 @@ export default {
     )
     .then((res) => {
       this.profilepicture=res.data.profilepicture
-      this.name=res.data.fullname
+      this.fullname=res.data.fullname
       this.bio = res.data.bio;
       this.posts= res.data.posts
       this.followers=res.data.followers
@@ -218,44 +218,37 @@ export default {
         if (res.data.status == true){
           this.msg = res.data.message;
           this.bio = res.data.student.bio
-          
-  
         }
         else if(res.data.status==false){
              this.msg=res.data.message
         }
-        setTimeout(() => {
-          this.mesg = '';
-        }, 6000);
+        
       }
     );
+    setTimeout(() => {
+          this.msg = '';
+        }, 6000);
     },
+
+
     editname() {
       let obj = {
         student_id: this.studentid,
         fullname: this.fullname,
       };
-      axios.post("http://127.0.0.1:8000/api/editname", obj).then((res) => {
-        if(res.data.status==200){
-axios.post("http://127.0.0.1:8000/api/getcurrentstudent", { id: this.studentid })
-      .then((res) => {
-        if (res.data.status == 200) {
-          this.fullname= res.data.student.fullname;
-          
-        } 
-        else if (res.data.status == 201) {
-          this.msg = res.data.msg;
+      axios.post("https://backendhivex.onrender.com/api/editname", obj).then((res) => {
+         console.log(res.data);
+        if (res.data.status == true){
+          this.msg = res.data.message;
+          this.fullname = res.data.student.fullname
+        }
+        else if(res.data.status==false){
+             this.msg=res.data.message
         }
       });
-            this.msg = res.data.msg;
-        }
-        else if(res.data.status==201){
-this.msg=res.data.msg
-        }
-        setTimeout(() => {
-          this.check = false;
-        }, 3000);
-      });
+       setTimeout(() => {
+          this.msg = '';
+        }, 6000);
     },
 
     logout() {
