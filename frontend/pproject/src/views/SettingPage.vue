@@ -23,7 +23,7 @@
       <div class="container my-4">
         <div class="row text-center">
           <div class="col">
-            <h5>{{ posts }}</h5>
+            <h5>{{ posts.length }}</h5>
             <small>Posts</small>
           </div>
           <div class="col">
