@@ -40,7 +40,7 @@
       <div class="container">
     
         <div class=" shadow p-3  mb-3">
-          <div class="alert alert-primary " v-if="check">{{ msg }}</div>
+          <div class="alert alert-primary " v-if="msg!=='' ">{{ msg }}</div>
           <div class="card-body">
             <h5 class="card-title">Bio</h5>
             <p v-if="bio !== null">{{ bio }}</p>
@@ -139,7 +139,7 @@ export default {
       following: [],
       bio: "",
       joinedat: "",
-      check: false,
+  
       msg: "",
       chartOptions: {
         responsive: true,
@@ -214,27 +214,17 @@ export default {
         student_id: this.studentid,
         bio: this.bio,
       };
-      axios.post("http://127.0.0.1:8000/api/createbio", obj).then((res) => {
-        if(res.data.status==true){
-            this.msg = res.data.msg;
-            axios.post("http://127.0.0.1:8000/api/getcurrentstudent", { id: this.studentid })
-      .then((res) => {
-        if (res.data.status == 200) {
-          this.bio = res.data.student.bio;
-          
-        } 
-        else if (res.data.status == 201) {
-          this.msg = res.data.msg;
-          this.check = true;
+      axios.post("https://backendhivex.onrender.com/api/createbio", obj).then((res) => {
+        if (res.data.status == true){
+          this.msg = res.data.message;
+          this.bio = res.data.student.bio
+  
         }
-      });
-
-        }
-        else if(res.data.status==201){
-             this.msg=res.data.msg
+        else if(res.data.status==false){
+             this.msg=res.data.message
         }
         setTimeout(() => {
-          this.check = false;
+          this.mesg = '';
         }, 6000);
       }
     );
