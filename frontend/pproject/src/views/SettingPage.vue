@@ -214,10 +214,10 @@ export default {
         bio: this.bio,
       };
       axios.post("https://backendhivex.onrender.com/api/createbio", obj).then((res) => {
+        console.log(res.data);
         if (res.data.status == true){
           this.msg = res.data.message;
           this.bio = res.data.student.bio
-          console.log(res.data);
           
   
         }
