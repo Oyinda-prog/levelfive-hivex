@@ -122,23 +122,6 @@ By staying in this group, you agree to follow these rules and keep the community
         </div>
     </div>
 </div>
-
-      <div class="row">
-<div class="col-md-6 col-12 shadow">
-    
-     <div class="m-2 p-2 shadow">
-        <div class="disable">
-            <div  class="d-flex mt-3">
-        <img :src="profilepicture" alt="" width="50px" class="rounded-pill-" height="50px"  style="border-radius: 100%; border: none;">
-        <div class="ms-3 mb-5 shadow">
-            <input type="text" class="form-control shadow-none" placeholder="Write something" style="max-width: 500px !important;">
-        </div>
-        </div>
-        </div>
-        
-     </div>
-</div>
-      </div>  
      </div>    
     </div>
 
