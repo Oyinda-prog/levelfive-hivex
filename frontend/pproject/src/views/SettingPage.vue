@@ -60,12 +60,12 @@
               <button
                 @click="createbio"
                 class="btn btn-outline-primary btn-sm my-3"
-                v-if="bio!=null"
+                v-if="bio"
               >
                 Update Bio
               </button>
               <button
-                v-if="bio==null"
+                v-else
                 @click="createbio"
                 class="btn btn-outline-primary btn-sm my-3"
               >
