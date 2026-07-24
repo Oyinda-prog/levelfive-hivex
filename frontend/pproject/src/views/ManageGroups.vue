@@ -6,7 +6,7 @@
         <div class="d-flex flex-column p-3 gap-3 mt-2">
           <div class="d-flex my-3">
             <div>
-              <img :src="profilepicture" alt="picture" height="50px" width="50px" style="border-radius: 100%; border: none;">
+              <img :src="profilepicture || require('../assets/images/default.jpg')" alt="picture" height="50px" width="50px" style="border-radius: 100%; border: none;">
             </div>
             <div><h5 class="mt-3 ms-3">{{ name }}</h5></div>
           </div>
