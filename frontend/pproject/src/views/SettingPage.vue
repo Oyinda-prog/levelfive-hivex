@@ -40,7 +40,7 @@
       <div class="container">
     
         <div class=" shadow p-3  mb-3">
-          <div class="alert alert-primary " v-if="msg!==''" >{{ msg }}</div>
+          <div class="alert alert-primary " v-if="msg" >{{ msg }}</div>
           <div class="card-body">
             <h5 class="card-title">Bio</h5>
             <div  class="text-center text-muted">
