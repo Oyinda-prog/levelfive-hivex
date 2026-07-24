@@ -198,7 +198,19 @@ export default {
     .catch((err) => {
       console.log(err.response?.data || err.message);
     });
+
+     axios.get(
+      `https://backendhivex.onrender.com/api/getsummary/${this.studentid}`
+    )
+    .then((res) => {
+      console.log(res.data);
+      
+    })
+    .catch((err) => {
+      console.log(err.response?.data || err.message);
+    });
   },
+
 
   methods: {
     createbio() {
