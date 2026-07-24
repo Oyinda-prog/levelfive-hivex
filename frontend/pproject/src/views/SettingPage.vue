@@ -12,9 +12,7 @@
             Lorem, ipsum dolor sit amet consectetur adi.
         </div>
         <img
-          :src="profilepicture!=''
-            ? `http://localhost:8000/profilepictures/${profilepicture}`
-            : require('../assets/images/default.jpg')"
+          :src="profilepicture || require('../assets/images/default.jpg')"
           alt="picture"
           style="width: 100px; height: 100px; border-radius: 100%;"
           class="rounde w-5 mx-auto d-block object-fit "
@@ -182,51 +180,26 @@ export default {
     }
 
     this.studentid = JSON.parse(localStorage.getItem("studentid"));
-
-    axios.post("http://127.0.0.1:8000/api/getcurrentstudent", { id: this.studentid })
-      .then((res) => {
-        if (res.data.status == 200) {
-          this.profilepicture = res.data.student.profilepicture;
-          this.fullname = res.data.student.fullname;
-          this.bio = res.data.student.bio;
-          let date = res.data.student.created_at;
-          this.joinedat = new Date(date).toLocaleDateString("en-US", {
-            month: "long",
-            year: "numeric",
-          });
-        } else if (res.data.status == 201) {
-          this.msg = res.data.msg;
-        }
+    axios.get(
+      `https://backendhivex.onrender.com/api/getcurrentstudent/${this.studentid}`
+    )
+    .then((res) => {
+      this.profilepicture=res.data.student.profilepicture
+      this.name=res.data.student.fullname
+      this.bio = res.data.student.bio;
+      let date = res.data.student.created_at;
+      this.joinedat = new Date(date).toLocaleDateString("en-US", {
+        month: "long",
+        year: "numeric",
       });
-
-    axios
-      .post("http://127.0.0.1:8000/api/mypost", { student_id: this.studentid })
-      .then((res) => {
-        if (res.data.status == 200) {
-          this.posts = res.data.post;
-        }
-      });
-
-    axios
-      .post("http://127.0.0.1:8000/api/allfollowers", {
-        student_id: this.studentid,
-      })
-      .then((res) => {
-        if (res.data.status == 200) {
-          this.followers = res.data.follower;
-        }
-      });
-
-    axios
-      .post("http://127.0.0.1:8000/api/allfollowing", {
-        student_id: this.studentid,
-      })
-      .then((res) => {
-        if (res.data.status == 200) {
-          this.following = res.data.following;
-        }
-      });
+      console.log(res.data);
+      
+    })
+    .catch((err) => {
+      console.log(err.response?.data || err.message);
+    });
   },
+
   methods: {
     createbio() {
         if(this.bio==''){
@@ -237,7 +210,7 @@ export default {
         bio: this.bio,
       };
       axios.post("http://127.0.0.1:8000/api/createbio", obj).then((res) => {
-        if(res.data.status==200){
+        if(res.data.status==true){
             this.msg = res.data.msg;
             axios.post("http://127.0.0.1:8000/api/getcurrentstudent", { id: this.studentid })
       .then((res) => {
@@ -258,7 +231,8 @@ export default {
         setTimeout(() => {
           this.check = false;
         }, 6000);
-      });
+      }
+    );
     },
     editname() {
       let obj = {
