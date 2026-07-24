@@ -23,7 +23,7 @@
       <div class="container my-4">
         <div class="row text-center">
           <div class="col">
-            <h5>{{ posts.length }}</h5>
+            <h5>{{ posts }}</h5>
             <small>Posts</small>
           </div>
           <div class="col">
@@ -43,9 +43,9 @@
           <div class="alert alert-primary " v-if="check">{{ msg }}</div>
           <div class="card-body">
             <h5 class="card-title">Bio</h5>
-            <p v-if="profile.bio">{{ profile.bio }}</p>
-            <div v-else class="text-center text-muted">
-              <p v-if="bio==''">No bio yet.</p>
+            <p v-if="bio !== null">{{ profile.bio }}</p>
+            <div  class="text-center text-muted">
+              <p v-if="bio==null">No bio yet.</p>
               <div class="shadow border col-md-8 col-12 mx-auto">
                 <textarea
                   name=""
@@ -60,12 +60,12 @@
               <button
                 @click="createbio"
                 class="btn btn-outline-primary btn-sm my-3"
-                v-if="bio!=''"
+                v-if="bio!=null"
               >
                 Update Bio
               </button>
               <button
-                v-if="bio==''"
+                v-if="bio==null"
                 @click="createbio"
                 class="btn btn-outline-primary btn-sm my-3"
               >
@@ -181,29 +181,22 @@ export default {
 
     this.studentid = JSON.parse(localStorage.getItem("studentid"));
     axios.get(
-      `https://backendhivex.onrender.com/api/getcurrentstudent/${this.studentid}`
+      `https://backendhivex.onrender.com/api/getsummary/${this.studentid}`
     )
     .then((res) => {
       this.profilepicture=res.data.student.profilepicture
       this.name=res.data.student.fullname
       this.bio = res.data.student.bio;
+      this.post= res.data.posts
+      this.followers=res.data.followers
+      this.following=res.data.following
       let date = res.data.student.created_at;
       this.joinedat = new Date(date).toLocaleDateString("en-US", {
         month: "long",
         year: "numeric",
       });
-      console.log(res.data);
-      
-    })
-    .catch((err) => {
-      console.log(err.response?.data || err.message);
-    });
-
-     axios.get(
-      `https://backendhivex.onrender.com/api/getsummary/${this.studentid}`
-    )
-    .then((res) => {
-      console.log(res.data);
+      console.log(this.bio, this.joinedat, this.followers, this.following);
+      // console.log(res.data);
       
     })
     .catch((err) => {
