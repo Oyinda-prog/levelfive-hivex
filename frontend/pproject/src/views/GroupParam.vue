@@ -4,7 +4,7 @@
    <div class="row mt-5 shadow">
     <div class="col-md-3 col-12 mt-5 shadow">
  <div class="d-flex mt-5">
- <img src="../assets/groupbg.png" alt="" class="rounded-3 w-100"  height="80px" style="max-width: 100px; filter: grayscale(100%);position: relative; z-index: 1;">
+ <img src="../assets/groupbg.png" alt="" class="rounded-3 w-100"  height="60px" style="max-width: 100px;">
  <div class="ms-2 mt-3">
     <h6>{{ group.name  }}</h6>
     <div v-if="group.privacy=='Private'"> <img src="../assets/padlock.png" alt="" width="10px" height="10px"> {{ group.privacy }} group. <span>{{ 1 }} member</span></div>
@@ -51,7 +51,7 @@ By staying in this group, you agree to follow these rules and keep the community
     </div>
     <div class="col-md-9 col-12 mt-5 shadow">
      <div class="mt-5">
-        <img src="../assets/groupbg.png" alt="" class="w-100 rounded d-block mt-2" style="filter: grayscale(100%); position: relative; z-index: 1000;">
+        <img src="../assets/groupbg.png" alt="" class="w-100 rounded d-block mt-2">
         <div class="p-3">
 <h4>{{group.name}}</h4>
  <div v-if="group.privacy=='Private'"> <img src="../assets/padlock.png" alt="" width="10px" height="10px"> {{ group.privacy }} group. <span>{{ 1 }} member</span></div>
